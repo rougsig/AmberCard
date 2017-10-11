@@ -7,9 +7,64 @@
     android:orientation="vertical"
     tools:context="ru.rougsig.ambercard.MainActivity">
 
-   <ImageView
-       android:layout_width="match_parent"
-       android:layout_height="232dp"
-       android:scaleType="centerCrop"
-       android:src="@drawable/img"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="232dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img" />
+
+        <include layout="@layout/toolbar_back" />
+    </FrameLayout>
+
+    <ScrollView
+        style="@style/bg_radius_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            style="@style/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    style="@style/Text_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:drawableStart="@drawable/ic_category_museum"
+                    android:text="Музеи" />
+
+                <include
+                    layout="@layout/rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center" />
+            </FrameLayout>
+
+            <TextView
+                style="@style/Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Музей-квартира Altes Haus — Hufen" />
+
+            <TextView
+                style="@style/Text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Музей показывает обстановку семейного быта семьи Густава Гросманна, купца и владельца продовольственного магазина и рассказывает историю городского района Хуфен. Здание на Шрёттерштрассе 11-13 было построено в 1912 году под доходный дом. Мы вместе прогуляемся по району Хуфен, узнаем историю доходных домов по улице Шрётерштрассе, где расположен дом герра Гроссмана, рассмотрим предметы мужского обихода: головные уборы, обувь, курительные трубки и аксессуары для курения, костюмы той эпохи. Загляните в Altes Haus — Hufen, чтобы увидеть, чем жили мужчины Кёнигсберга на рубеже XIX и ХХ веков." />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

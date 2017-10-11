@@ -1,11 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
     <!-- Text theme. -->
@@ -19,15 +15,16 @@
     <style name="Title">
         <item name="android:fontFamily">@font/yeseva_one</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginBottom">12dp</item>
     </style>
 
     <style name="Text">
         <item name="android:fontFamily">@font/open_sans</item>
         <item name="android:textSize">17sp</item>
         <item name="android:textColor">@color/gray</item>
-        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:lineSpacingExtra">1sp</item>
     </style>
 
     <style name="Text_bold" parent="Text">
@@ -36,11 +33,36 @@
 
     <style name="Text_contact" parent="Text">
         <item name="android:textSize">18sp</item>
-        <item name="lineSpacingExtra">0sp</item>
+        <item name="android:lineSpacingExtra">0sp</item>
     </style>
 
     <style name="Text_category" parent="Text">
-        <item name="textSize">16sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:drawablePadding">16dp</item>
+    </style>
+
+    <!-- Btn theme. -->
+    <style name="btn"></style>
+
+    <style name="btn_transparent">
+        <item name="android:background">#00000000</item>
+    </style>
+
+    <style name="btn_back" parent="btn_transparent">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:src">@drawable/ic_back</item>
+    </style>
+
+    <!-- Content theme -->
+    <style name="content">
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:paddingRight">24dp</item>
+    </style>
+
+    <style name="bg_radius_top">
+        <item name="android:layout_marginTop">-8dp</item>
+        <item name="android:background">@drawable/bg_content_corner_top</item>
     </style>
 </resources>
