@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Text theme. -->
+    <style name="Number">
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineSpacingExtra">30sp</item>
+        <item name="android:color">@color/black</item>
+    </style>
+
+    <style name="Title">
+        <item name="android:fontFamily">@font/yeseva_one</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Text">
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+    </style>
+
+    <style name="Text_bold" parent="Text">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Text_contact" parent="Text">
+        <item name="android:textSize">18sp</item>
+        <item name="lineSpacingExtra">0sp</item>
+    </style>
+
+    <style name="Text_category" parent="Text">
+        <item name="textSize">16sp</item>
+        <item name="android:drawablePadding">16dp</item>
+    </style>
+</resources>
