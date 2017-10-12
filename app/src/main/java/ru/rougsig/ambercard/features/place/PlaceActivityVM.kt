@@ -18,13 +18,18 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
 
     val place = ObservableField<Place>()
 
+    // Пустые поля нигде никак не обрабатываются, если информации не приходит, то плейсхолдеров не предусмотрено.
+
     override fun onResume() {
         super.onResume()
+        // TODO: Используй лямбду, не стоит городить интерфейсы, анонимные объекты итд.
+        // Пример: PlaceRepository.getPlace { onPLaceLoaded(it) }
         PlaceRepository.getPlace(object: Loader<Place>{
             override fun onLoaded(item: Place) = onPlaceLoaded(item)
         })
     }
 
+    // TODO: Функция нигде не используется, можно сделать приватной.
     fun onPlaceLoaded(place: Place) {
         this.place.set(place)
     }
