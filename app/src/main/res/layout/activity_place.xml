@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:f="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.rougsig.ambercard.features.place.PlaceActivityVM" />
+
+        <import
+            alias="utils"
+            type="ru.rougsig.ambercard.utils.TextViewUtils" />
+
+        <import type="ru.rougsig.ambercard.R" />
+
+        <import
+            alias="v"
+            type="android.view.View" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img"
+                        android:layout_width="match_parent"
+                        android:layout_height="232dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/img" />
+                </FrameLayout>
+
+                <LinearLayout
+                    style="@style/bg_radius_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:orientation="vertical"
+                    android:paddingBottom="0dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp">
+
+                        <TextView
+                            style="@style/Text_category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|center"
+                            android:drawableStart="@drawable/ic_category_museum"
+                            android:text="@{viewModel.place.category[0].name}" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginEnd="4dp"
+                                android:src="@{viewModel.place.rate >= 1 ? @drawable/ic_star_active : @drawable/ic_star}" />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginEnd="4dp"
+                                android:src="@{viewModel.place.rate >= 2 ? @drawable/ic_star_active : @drawable/ic_star}" />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginEnd="4dp"
+                                android:src="@{viewModel.place.rate >= 3 ? @drawable/ic_star_active : @drawable/ic_star}" />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginEnd="4dp"
+                                android:src="@{viewModel.place.rate >= 4 ? @drawable/ic_star_active : @drawable/ic_star}" />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@{viewModel.place.rate >= 5 ? @drawable/ic_star_active : @drawable/ic_star}" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <TextView
+                        style="@style/Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.place.name}" />
+
+                    <TextView
+                        style="@style/Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@{viewModel.place.description}" />
+
+                    <TextView
+                        style="@style/Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{utils.getTitleText(R.string.work_time, viewModel.place.descriptionTwo)}" />
+
+                    <TextView
+                        style="@style/Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{utils.getTitleText(viewModel.place.costText, viewModel.place.costSum)}" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:cropToPadding="true"
+                    android:src="@color/gray" />
+
+                <LinearLayout
+                    style="@style/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="0dp"
+                    android:paddingTop="0dp">
+
+                    <TextView
+                        style="@style/Text_contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
+                        android:drawableStart="@drawable/ic_phone"
+                        android:text="@{viewModel.place.phone}" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <include layout="@layout/toolbar_back" />
+    </FrameLayout>
+</layout>

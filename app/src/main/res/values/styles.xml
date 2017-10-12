@@ -1,8 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" />
 
     <!-- Text theme. -->
     <style name="Number">
@@ -25,6 +24,7 @@
         <item name="android:textSize">17sp</item>
         <item name="android:textColor">@color/gray</item>
         <item name="android:lineSpacingExtra">1sp</item>
+        <item name="android:layout_marginBottom">16dp</item>
     </style>
 
     <style name="Text_bold" parent="Text">
@@ -34,21 +34,25 @@
     <style name="Text_contact" parent="Text">
         <item name="android:textSize">18sp</item>
         <item name="android:lineSpacingExtra">0sp</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingBottom">24dp</item>
+        <item name="android:drawablePadding">16dp</item>
     </style>
 
     <style name="Text_category" parent="Text">
         <item name="android:textSize">16sp</item>
         <item name="android:drawablePadding">16dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
     </style>
 
     <!-- Btn theme. -->
-    <style name="btn"></style>
+    <style name="Btn"></style>
 
-    <style name="btn_transparent">
+    <style name="Btn_transparent" parent="Btn">
         <item name="android:background">#00000000</item>
     </style>
 
-    <style name="btn_back" parent="btn_transparent">
+    <style name="btn_back" parent="Btn_transparent">
         <item name="android:layout_width">32dp</item>
         <item name="android:layout_height">32dp</item>
         <item name="android:src">@drawable/ic_back</item>
@@ -59,9 +63,10 @@
         <item name="android:paddingTop">24dp</item>
         <item name="android:paddingLeft">24dp</item>
         <item name="android:paddingRight">24dp</item>
+        <item name="android:paddingBottom">24dp</item>
     </style>
 
-    <style name="bg_radius_top">
+    <style name="bg_radius_top" parent="content">
         <item name="android:layout_marginTop">-8dp</item>
         <item name="android:background">@drawable/bg_content_corner_top</item>
     </style>
