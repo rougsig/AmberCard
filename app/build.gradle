@@ -23,22 +23,27 @@ android {
     dataBinding {
         enabled = true
     }
+    sourceSets {
+        main {
+            res.srcDirs += ['src/main/res/defaults']
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
-    // TODO: Не используется, лучше выпилить, чтобы не занимала лишнего места.
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:26.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation ('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     kapt "com.android.databinding:compiler:$android_plugin_version"
     compile 'com.github.stfalcon:androidmvvmhelper:0.4'
-    compile 'com.github.salomonbrys.kotson:kotson:2.5.0'
+    compile 'com.squareup.moshi:moshi:1.5.0'
+    compile 'com.squareup.moshi:moshi-kotlin:1.5.0'
 }
 
 kapt {

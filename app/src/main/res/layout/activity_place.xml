@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:f="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -39,7 +38,7 @@
 
                 <!--TODO: Лишнее указание отступов-->
                 <LinearLayout
-                    style="@style/bg_radius_top"
+                    style="@style/Content.RadiusTop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="0dp"
@@ -53,12 +52,12 @@
                         android:layout_marginBottom="12dp">
 
                         <TextView
-                            style="@style/Text_category"
+                            style="@style/Text.Category"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center"
                             android:drawableStart="@drawable/ic_category_museum"
-                            android:text="@{viewModel.place.category[0].name}" />
+                            android:text="@{viewModel.place.category[0].name, default=Категория}" />
 
                         <!-- Лучше использовать RateBar, либо написать на его основе свою вью-->
                         <LinearLayout
@@ -102,6 +101,7 @@
                         style="@style/Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
                         android:text="@{viewModel.place.name}" />
 
                     <TextView
@@ -133,7 +133,7 @@
                 <!--TODO: Лишний лайаут, ибо внутри только одна вьюшка. Если по задумке предусматривался динамический инфлейтинг, то тогда вью внутри быть не должно.-->
                 <!--TODO: Лишнее указание отступов-->
                 <LinearLayout
-                    style="@style/content"
+                    style="@style/Content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -141,12 +141,12 @@
                     android:paddingTop="0dp">
 
                     <TextView
-                        style="@style/Text_contact"
+                        style="@style/Text.Contact"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="0dp"
                         android:drawableStart="@drawable/ic_phone"
-                        android:text="@{viewModel.place.phone}" />
+                        android:text="@{viewModel.place.phone, default=Телефон}" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

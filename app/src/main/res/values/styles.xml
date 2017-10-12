@@ -22,13 +22,11 @@
         <item name="android:color">@color/black</item>
     </style>
 
-    <!--TODO: Никогда не задавай отступы в стилях текста, это убивает переиспользование на корню.-->
     <style name="Title">
         <item name="android:fontFamily">@font/yeseva_one</item>
         <item name="android:textSize">24sp</item>
         <item name="android:lineSpacingExtra">4sp</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:layout_marginBottom">12dp</item>
     </style>
 
     <style name="Text">
@@ -39,13 +37,11 @@
         <item name="android:layout_marginBottom">16dp</item>
     </style>
 
-    <!--Дело вкуса, но наглядней было бы наследовать стили не через parent=... а неймингом через точку-->
-    <!--Например: Text.Bold -->
-    <style name="Text_bold" parent="Text">
+    <style name="Text.Bold">
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="Text_contact" parent="Text">
+    <style name="Text.Contact">
         <item name="android:textSize">18sp</item>
         <item name="android:lineSpacingExtra">0sp</item>
         <item name="android:paddingTop">24dp</item>
@@ -53,7 +49,7 @@
         <item name="android:drawablePadding">16dp</item>
     </style>
 
-    <style name="Text_category" parent="Text">
+    <style name="Text.Category">
         <item name="android:textSize">16sp</item>
         <item name="android:drawablePadding">16dp</item>
         <item name="android:layout_marginBottom">0dp</item>
@@ -62,25 +58,25 @@
     <!-- Btn theme. -->
     <style name="Btn"></style>
 
-    <style name="Btn_transparent" parent="Btn">
-        <item name="android:background">#00000000</item>
+    <style name="Btn.Transparent">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="btn_back" parent="Btn_transparent">
+    <style name="Btn.Transparent.Back">
         <item name="android:layout_width">32dp</item>
         <item name="android:layout_height">32dp</item>
         <item name="android:src">@drawable/ic_back</item>
     </style>
 
     <!-- Content theme -->
-    <style name="content">
+    <style name="Content">
         <item name="android:paddingTop">24dp</item>
         <item name="android:paddingLeft">24dp</item>
         <item name="android:paddingRight">24dp</item>
         <item name="android:paddingBottom">24dp</item>
     </style>
 
-    <style name="bg_radius_top" parent="content">
+    <style name="Content.RadiusTop">
         <item name="android:layout_marginTop">-8dp</item>
         <item name="android:background">@drawable/bg_content_corner_top</item>
     </style>

@@ -1,13 +1,8 @@
 package ru.rougsig.ambercard.utils
 
-import android.content.Context
 import android.support.v4.content.ContextCompat
-import android.text.*
 import android.text.style.ForegroundColorSpan
 import ru.rougsig.ambercard.R
-import android.content.ContentValues.TAG
-import android.content.res.Resources
-import android.graphics.Color
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
@@ -32,5 +27,4 @@ object TextUtils {
         spannable.setSpan(StyleSpan(Typeface.BOLD), 0, title.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannable
     } else SpannableString("")
-
 }

@@ -1,9 +1,7 @@
 package ru.rougsig.ambercard.utils
 
-import com.github.salomonbrys.kotson.registerTypeAdapter
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import ru.rougsig.ambercard.common.models.Category
+import com.squareup.moshi.KotlinJsonAdapterFactory
+import com.squareup.moshi.Moshi
 import ru.rougsig.ambercard.common.models.Place
 
 /**
@@ -11,15 +9,12 @@ import ru.rougsig.ambercard.common.models.Place
  */
 class JsonParser private constructor() {
     private object Holder {
-        val INSTANCE = GsonBuilder()
-                .registerTypeAdapter(Category.serializer)
-                .registerTypeAdapter(Category.deserializer)
-                .registerTypeAdapter(Place.serializer)
-                .registerTypeAdapter(Place.deserializer)
-                .create()!!
+        val parser = Moshi.Builder()
+                .add(KotlinJsonAdapterFactory())
+                .build()!!
     }
 
     companion object {
-        val gson: Gson by lazy { Holder.INSTANCE }
+        val parser: Moshi  by lazy { Holder.parser }
     }
 }
