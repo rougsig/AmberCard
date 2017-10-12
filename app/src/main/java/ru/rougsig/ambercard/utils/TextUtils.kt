@@ -18,7 +18,7 @@ import ru.rougsig.ambercard.App
 /**
  * Created by rougs on 11-Oct-17.
  */
-object TextViewUtils {
+object TextUtils {
     @JvmStatic
     fun getTitleText(title: Int?, text: String?) = if (text != null && title != null)
         getTitleText(App.context.getString(title) as String, text)
