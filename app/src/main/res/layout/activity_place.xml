@@ -8,16 +8,6 @@
         <variable
             name="viewModel"
             type="ru.rougsig.ambercard.features.place.PlaceActivityVM" />
-
-        <import
-            alias="utils"
-            type="ru.rougsig.ambercard.utils.TextViewUtils" />
-
-        <import type="ru.rougsig.ambercard.R" />
-
-        <import
-            alias="v"
-            type="android.view.View" />
     </data>
 
     <FrameLayout
@@ -124,13 +114,13 @@
                         style="@style/Text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{utils.getTitleText(R.string.work_time, viewModel.place.descriptionTwo)}" />
+                        android:text="@{viewModel.place.workTime}" />
 
                     <TextView
                         style="@style/Text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{utils.getTitleText(viewModel.place.costText, viewModel.place.costSum)}" />
+                        android:text="@{viewModel.place.cost}" />
                 </LinearLayout>
 
                 <!--TODO: ImageView не нужна, можно использовать просто View-->

@@ -1,13 +1,13 @@
 package ru.rougsig.ambercard.common.models
 
+import android.text.SpannableString
 import com.github.salomonbrys.kotson.get
 import com.github.salomonbrys.kotson.jsonDeserializer
 import com.github.salomonbrys.kotson.jsonSerializer
-import com.github.salomonbrys.kotson.nullInt
 import com.google.gson.JsonObject
+import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.utils.JsonParser
-import ru.rougsig.ambercard.utils.TextViewUtils
-import java.util.concurrent.locks.Condition
+import ru.rougsig.ambercard.utils.TextUtils
 
 /**
  * Created by rougs on 11-Oct-17.
@@ -32,6 +32,10 @@ data class Place(
         val peopleMax: Int?,
         val photos: Array<String>
 ) {
+
+    fun getCost(): SpannableString = TextUtils.getTitleText(costText, costSum)
+    fun getWorkTime(): SpannableString = TextUtils.getTitleText(R.string.work_time, descriptionTwo)
+
     companion object {
         val serializer = jsonSerializer<Place> {
             JsonObject()

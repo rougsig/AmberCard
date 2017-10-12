@@ -3,6 +3,7 @@ package ru.rougsig.ambercard.features.place
 import android.content.Context
 import android.databinding.ObservableField
 import android.graphics.Color
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel
 import ru.rougsig.ambercard.R
@@ -24,7 +25,7 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
         super.onResume()
         // TODO: Используй лямбду, не стоит городить интерфейсы, анонимные объекты итд.
         // Пример: PlaceRepository.getPlace { onPLaceLoaded(it) }
-        PlaceRepository.getPlace(object: Loader<Place>{
+        PlaceRepository.getPlace(object : Loader<Place> {
             override fun onLoaded(item: Place) = onPlaceLoaded(item)
         })
     }
