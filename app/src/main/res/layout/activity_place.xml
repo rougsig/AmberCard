@@ -18,11 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <!--TODO: Использование констрейнт лайаута бы было оправданым, спасло бы от вложенности, уберегло от наложения текста-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!--TODO: Зачем он?-->
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -35,6 +37,7 @@
                         android:src="@drawable/img" />
                 </FrameLayout>
 
+                <!--TODO: Лишнее указание отступов-->
                 <LinearLayout
                     style="@style/bg_radius_top"
                     android:layout_width="match_parent"
@@ -43,6 +46,7 @@
                     android:orientation="vertical"
                     android:paddingBottom="0dp">
 
+                    <!--TODO: При длинной строке текст наложится на звездочки-->
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -56,6 +60,7 @@
                             android:drawableStart="@drawable/ic_category_museum"
                             android:text="@{viewModel.place.category[0].name}" />
 
+                        <!-- Лучше использовать RateBar, либо написать на его основе свою вью-->
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -118,12 +123,15 @@
                         android:text="@{viewModel.place.cost}" />
                 </LinearLayout>
 
+                <!--TODO: ImageView не нужна, можно использовать просто View-->
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:cropToPadding="true"
                     android:src="@color/gray" />
 
+                <!--TODO: Лишний лайаут, ибо внутри только одна вьюшка. Если по задумке предусматривался динамический инфлейтинг, то тогда вью внутри быть не должно.-->
+                <!--TODO: Лишнее указание отступов-->
                 <LinearLayout
                     style="@style/content"
                     android:layout_width="match_parent"

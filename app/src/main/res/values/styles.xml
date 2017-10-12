@@ -22,6 +22,7 @@
         <item name="android:color">@color/black</item>
     </style>
 
+    <!--TODO: Никогда не задавай отступы в стилях текста, это убивает переиспользование на корню.-->
     <style name="Title">
         <item name="android:fontFamily">@font/yeseva_one</item>
         <item name="android:textSize">24sp</item>
@@ -38,6 +39,8 @@
         <item name="android:layout_marginBottom">16dp</item>
     </style>
 
+    <!--Дело вкуса, но наглядней было бы наследовать стили не через parent=... а неймингом через точку-->
+    <!--Например: Text.Bold -->
     <style name="Text_bold" parent="Text">
         <item name="android:textColor">@color/black</item>
     </style>
