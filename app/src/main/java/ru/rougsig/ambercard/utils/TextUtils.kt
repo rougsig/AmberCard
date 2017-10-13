@@ -28,3 +28,14 @@ object TextUtils {
         spannable
     } else SpannableString("")
 }
+
+
+fun String?.defaultIfEmptyOrNull(defaultResourceId: Int): String {
+    return this.defaultIfEmptyOrNull(ResourceUtils.getString(defaultResourceId))
+}
+
+fun String?.defaultIfEmptyOrNull(defaultValue: String): String {
+    return if (this.isNullOrEmpty())
+        defaultValue
+    else this!!
+}
