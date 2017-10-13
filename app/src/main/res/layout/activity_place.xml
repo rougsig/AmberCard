@@ -7,11 +7,13 @@
         <variable
             name="viewModel"
             type="ru.rougsig.ambercard.features.place.PlaceActivityVM" />
+
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="@{viewModel.isLoaded.get">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -151,6 +153,14 @@
             </LinearLayout>
         </ScrollView>
 
+        <ProgressBar
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:visibility="@{!viewModel.isLoaded.get" />
+
         <include layout="@layout/toolbar_back" />
     </FrameLayout>
+
+
 </layout>

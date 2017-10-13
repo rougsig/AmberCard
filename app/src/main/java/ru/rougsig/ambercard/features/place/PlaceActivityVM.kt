@@ -1,5 +1,6 @@
 package ru.rougsig.ambercard.features.place
 
+import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel
 import ru.rougsig.ambercard.R
@@ -13,6 +14,7 @@ import ru.rougsig.ambercard.features.place.data.PlaceRepository
 class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity>(activity) {
 
     val place = ObservableField<Place>()
+    val isLoaded = ObservableBoolean(false)
 
     // Пустые поля нигде никак не обрабатываются, если информации не приходит, то плейсхолдеров не предусмотрено.
 
@@ -20,7 +22,7 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
         super.onResume()
         PlaceRepository.get { onPlaceLoaded(it) }
     }
-    
+
     private fun onPlaceLoaded(place: Place) {
         this.place.set(place)
     }
