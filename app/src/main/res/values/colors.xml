@@ -11,4 +11,6 @@
     <color name="bg_white">#FFF</color>
     <color name="transparent">#0000FF00</color>
     <color name="primary_dark_material_light">#000000</color>
+    <color name="background_material_light">#ffffff</color>
+    <color name="primary_material_light">#ffffff</color>
 </resources>

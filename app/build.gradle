@@ -37,8 +37,10 @@ dependencies {
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     kapt "com.android.databinding:compiler:$android_plugin_version"
     compile 'com.github.stfalcon:androidmvvmhelper:0.4'
+    compile 'com.github.techery:properratingbar:0.0.5'
     compile 'com.squareup.moshi:moshi:1.5.0'
     compile 'com.squareup.moshi:moshi-kotlin:1.5.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
 kapt {

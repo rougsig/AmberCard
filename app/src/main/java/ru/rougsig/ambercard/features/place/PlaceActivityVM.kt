@@ -25,5 +25,6 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
 
     private fun onPlaceLoaded(place: Place) {
         this.place.set(place)
+        isLoaded.set(true)
     }
 }
