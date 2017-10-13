@@ -2,7 +2,9 @@
 <resources>
     <!-- Place for defaults value -->
 
-    <string name="defaults_work_time">24 на 7</string>
     <string name="defaults_work_text">Режим работы:</string>
-    <string name="defaults_cost">Стоимость:</string>
+    <string name="defaults_work_time">круглосуточно</string>
+
+    <string name="defaults_cost_text">Стоимость посещения:</string>
+    <string name="defaults_cost_value">бесплатно</string>
 </resources>

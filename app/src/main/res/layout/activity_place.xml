@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -7,6 +8,12 @@
         <variable
             name="viewModel"
             type="ru.rougsig.ambercard.features.place.PlaceActivityVM" />
+
+        <import
+            alias="Converter"
+            type="ru.rougsig.ambercard.binding.TypeConverter" />
+
+        <import type="android.view.View" />
     </data>
 
     <FrameLayout
@@ -15,142 +22,155 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.isLoaded}">
 
-            <!--TODO: Использование констрейнт лайаута бы было оправданым, спасло бы от вложенности, уберегло от наложения текста-->
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:paddingBottom="24dp">
 
-                <!--TODO: Зачем он?-->
-                <FrameLayout
+                <ImageView
+                    android:id="@+id/img"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="256dp"
+                    android:contentDescription="@string/preview"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/img"
-                        android:layout_width="match_parent"
-                        android:layout_height="232dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/img" />
-                </FrameLayout>
-
-                <!--TODO: Лишнее указание отступов-->
-                <LinearLayout
+                <View
                     style="@style/Content.RadiusTop"
                     android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    app:layout_constraintBottom_toBottomOf="@id/img" />
+
+                <TextView
+                    android:id="@+id/category"
+                    style="@style/Text.Category"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="0dp"
-                    android:orientation="vertical"
-                    android:paddingBottom="0dp">
+                    android:layout_marginEnd="8dp"
+                    android:singleLine="true"
+                    android:text="@{viewModel.place.category[0].name}"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintRight_toLeftOf="@id/ratingBar"
+                    app:layout_constraintStart_toStartOf="@id/guideline_left"
+                    app:layout_constraintTop_toBottomOf="@id/img"
+                    tools:drawableLeft="@drawable/ic_category_museum"
+                    tools:text="@tools:sample/lorem" />
 
-                    <!--TODO: При длинной строке текст наложится на звездочки-->
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp">
+                <io.techery.properratingbar.ProperRatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/RatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="true"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintLeft_toRightOf="@id/category"
+                    app:layout_constraintTop_toBottomOf="@id/img"
+                    app:prb_tickSpacing="2dp"
+                    app:rating="@{viewModel.place.rate}"
+                    tools:prb_defaultRating="2" />
 
-                        <TextView
-                            style="@style/Text.Category"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start|center"
-                            android:drawableStart="@drawable/ic_category_museum"
-                            android:text="@{viewModel.place.category[0].name, default=Категория}" />
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/Title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@{viewModel.place.name}"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                    app:layout_constraintStart_toStartOf="@id/guideline_left"
+                    app:layout_constraintTop_toBottomOf="@id/category"
+                    tools:text="@tools:sample/lorem" />
 
-                        <!-- Лучше использовать RateBar, либо написать на его основе свою вью-->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end|center"
-                            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/description"
+                    style="@style/Text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@{viewModel.place.description}"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                    app:layout_constraintStart_toStartOf="@id/guideline_left"
+                    app:layout_constraintTop_toBottomOf="@+id/title"
+                    tools:text="@tools:sample/lorem" />
 
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:layout_marginEnd="4dp"
-                                android:src="@{viewModel.place.rate >= 1 ? @drawable/ic_star_active : @drawable/ic_star}" />
+                <TextView
+                    android:id="@+id/work_time"
+                    style="@style/Text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.place.cost}"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                    app:layout_constraintStart_toStartOf="@id/guideline_left"
+                    app:layout_constraintTop_toBottomOf="@id/description"
+                    tools:text="@tools:sample/lorem" />
 
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:layout_marginEnd="4dp"
-                                android:src="@{viewModel.place.rate >= 2 ? @drawable/ic_star_active : @drawable/ic_star}" />
+                <TextView
+                    android:id="@+id/cost"
+                    style="@style/Text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.place.workTime}"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                    app:layout_constraintStart_toStartOf="@id/guideline_left"
+                    app:layout_constraintTop_toBottomOf="@id/work_time"
+                    tools:text="@tools:sample/lorem" />
 
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:layout_marginEnd="4dp"
-                                android:src="@{viewModel.place.rate >= 3 ? @drawable/ic_star_active : @drawable/ic_star}" />
-
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:layout_marginEnd="4dp"
-                                android:src="@{viewModel.place.rate >= 4 ? @drawable/ic_star_active : @drawable/ic_star}" />
-
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:src="@{viewModel.place.rate >= 5 ? @drawable/ic_star_active : @drawable/ic_star}" />
-                        </LinearLayout>
-                    </FrameLayout>
-
-                    <TextView
-                        style="@style/Title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:text="@{viewModel.place.name}" />
-
-                    <TextView
-                        style="@style/Text"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@{viewModel.place.description}" />
-
-                    <TextView
-                        style="@style/Text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.place.workTime}" />
-
-                    <TextView
-                        style="@style/Text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.place.cost}" />
-                </LinearLayout>
-
-                <!--TODO: ImageView не нужна, можно использовать просто View-->
-                <ImageView
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:cropToPadding="true"
-                    android:src="@color/gray" />
+                    android:background="@color/gray"
+                    android:visibility="@{Converter.toVisibility(viewModel.place.phone)}"
+                    app:layout_constraintBottom_toTopOf="@+id/phone" />
 
-                <!--TODO: Лишний лайаут, ибо внутри только одна вьюшка. Если по задумке предусматривался динамический инфлейтинг, то тогда вью внутри быть не должно.-->
-                <!--TODO: Лишнее указание отступов-->
-                <LinearLayout
-                    style="@style/Content"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/phone"
+                    style="@style/Text.Contact"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="0dp"
-                    android:paddingTop="0dp">
+                    android:layout_marginTop="16dp"
+                    android:drawableStart="@drawable/ic_phone"
+                    android:paddingTop="24dp"
+                    android:text="@{viewModel.place.phone}"
+                    android:visibility="@{Converter.toVisibility(viewModel.place.phone)}"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                    app:layout_constraintStart_toStartOf="@id/guideline_left"
+                    app:layout_constraintTop_toBottomOf="@id/cost"
+                    tools:text="+7 (987) 765-43-21" />
 
-                    <TextView
-                        style="@style/Text.Contact"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="0dp"
-                        android:drawableStart="@drawable/ic_phone"
-                        android:text="@{viewModel.place.phone, default=Телефон}" />
-                </LinearLayout>
-            </LinearLayout>
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="20dp" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="20dp" />
+
+            </android.support.constraint.ConstraintLayout>
         </ScrollView>
 
         <include layout="@layout/toolbar_back" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{!viewModel.isLoaded}"
+            tools:visibility="gone" />
     </FrameLayout>
+
+
 </layout>

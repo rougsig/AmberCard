@@ -1,7 +1,9 @@
-<resources>
-
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:colorBackground">@color/bg_white</item>
+    </style>
 
     <style name="AppTheme.ActionBar.Transparent" parent="AppTheme">
         <item name="android:windowContentOverlay">@null</item>
@@ -77,7 +79,14 @@
     </style>
 
     <style name="Content.RadiusTop">
-        <item name="android:layout_marginTop">-8dp</item>
         <item name="android:background">@drawable/bg_content_corner_top</item>
+    </style>
+
+    <!-- RatingBar theme -->
+    <style name="RatingBar">
+        <item name="android:stepSize">1</item>
+        <item name="android:numStars">5</item>
+        <item name="prb_tickNormalDrawable">@drawable/ic_star</item>
+        <item name="prb_tickSelectedDrawable">@drawable/ic_star_active</item>
     </style>
 </resources>
