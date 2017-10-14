@@ -1,5 +1,6 @@
 package ru.rougsig.ambercard.features.place
 
+import android.databinding.Bindable
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel
@@ -16,7 +17,10 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
     val place = ObservableField<Place>()
     val isLoaded = ObservableBoolean(false)
 
-    // Пустые поля нигде никак не обрабатываются, если информации не приходит, то плейсхолдеров не предусмотрено.
+    @Bindable
+    fun getImageUrl(): String {
+        return "https://littleanimeblog.files.wordpress.com/2016/06/re-zero-puck.jpg"
+    }
 
     override fun onResume() {
         super.onResume()
