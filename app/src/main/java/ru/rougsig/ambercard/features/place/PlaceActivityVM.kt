@@ -1,11 +1,10 @@
 package ru.rougsig.ambercard.features.place
 
-import android.databinding.Bindable
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
+import android.view.View
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel
-import ru.rougsig.ambercard.R
-import ru.rougsig.ambercard.common.models.Place
+import ru.rougsig.ambercard.features.place.data.PlaceModel
 import ru.rougsig.ambercard.features.place.data.PlaceRepository
 
 /**
@@ -14,7 +13,7 @@ import ru.rougsig.ambercard.features.place.data.PlaceRepository
 
 class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity>(activity) {
 
-    val place = ObservableField<Place>()
+    val place = ObservableField<PlaceModel>()
     val isLoaded = ObservableBoolean(false)
 
     override fun onResume() {
@@ -22,8 +21,10 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
         PlaceRepository.get { onPlaceLoaded(it) }
     }
 
-    private fun onPlaceLoaded(place: Place) {
+    private fun onPlaceLoaded(place: PlaceModel) {
         this.place.set(place)
         isLoaded.set(true)
     }
+
+    fun onClickBack(view: View) = getActivity().finish()
 }

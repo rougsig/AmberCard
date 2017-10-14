@@ -2,7 +2,6 @@ package ru.rougsig.ambercard.utils
 
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
-import ru.rougsig.ambercard.common.models.Place
 
 /**
  * Created by rougs on 11-Oct-17.
