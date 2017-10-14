@@ -29,42 +29,34 @@
                 android:id="@+id/main_appbar"
                 android:layout_width="match_parent"
                 android:layout_height="256dp"
-                android:windowContentOverlay="@null"
-                app:elevation="0dp"
-                android:fitsSystemWindows="true">
+                android:fitsSystemWindows="true"
+                app:elevation="0dp">
 
                 <android.support.design.widget.CollapsingToolbarLayout
                     android:id="@+id/main_collapsing"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
-                    app:contentScrim="@android:color/transparent"
-                    app:expandedTitleMarginEnd="64dp"
-                    app:expandedTitleMarginStart="48dp"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                    app:layout_scrollFlags="scroll">
 
-                    <ImageView
-                        android:id="@+id/main_backdrop"
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/img"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/red"
+                        android:layout_height="256dp"
+                        android:contentDescription="@string/preview"
                         android:fitsSystemWindows="true"
                         android:scaleType="centerCrop"
-                        app:layout_collapseMode="parallax" />
+                        app:imageUrl="@{viewModel.place.preView}"
+                        app:layout_collapseMode="parallax"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:background="@color/gray" />
 
                     <View
                         android:layout_width="wrap_content"
                         android:layout_height="24dp"
                         android:layout_gravity="bottom"
                         android:background="@drawable/bg_content_corner_top" />
-
-                    <android.support.v7.widget.Toolbar
-                        android:id="@+id/main_toolbar"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:background="@color/transparent"
-                        app:layout_collapseMode="pin"
-                        app:popupTheme="@style/AppTheme.ActionBar.Transparent" />
                 </android.support.design.widget.CollapsingToolbarLayout>
             </android.support.design.widget.AppBarLayout>
 
@@ -73,13 +65,143 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <TextView
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/parent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lineSpacingExtra="8dp"
-                    android:text="lorem lorem lorem"
-                    android:textSize="20sp" />
+                    android:layout_height="match_parent"
+                    android:paddingBottom="24dp">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/category_img"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:imageUrl="@{viewModel.place.categoryIcon}"
+                        app:layout_constraintStart_toStartOf="@id/guideline_left"
+                        app:layout_constraintTop_toTopOf="@+id/parent"
+                        tools:background="@color/gray" />
+
+                    <TextView
+                        android:id="@+id/category"
+                        style="@style/Text.Category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="16dp"
+                        android:singleLine="true"
+                        android:text="@{viewModel.place.category[0].name}"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintRight_toLeftOf="@id/ratingBar"
+                        app:layout_constraintStart_toEndOf="@id/category_img"
+                        app:layout_constraintTop_toTopOf="@+id/parent"
+                        tools:text="@tools:sample/lorem" />
+
+                    <io.techery.properratingbar.ProperRatingBar
+                        android:id="@+id/ratingBar"
+                        style="@style/RatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="true"
+                        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintLeft_toRightOf="@id/category"
+                        app:layout_constraintTop_toTopOf="@+id/parent"
+                        app:prb_tickSpacing="2dp"
+                        app:rating="@{viewModel.place.rate}"
+                        tools:prb_defaultRating="2" />
+
+                    <TextView
+                        android:id="@+id/title"
+                        style="@style/Title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@{viewModel.place.name}"
+                        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                        app:layout_constraintStart_toStartOf="@id/guideline_left"
+                        app:layout_constraintTop_toBottomOf="@id/category"
+                        tools:text="@tools:sample/lorem" />
+
+                    <TextView
+                        android:id="@+id/description"
+                        style="@style/Text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@{viewModel.place.description}"
+                        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                        app:layout_constraintStart_toStartOf="@id/guideline_left"
+                        app:layout_constraintTop_toBottomOf="@+id/title"
+                        tools:text="@tools:sample/lorem" />
+
+                    <TextView
+                        android:id="@+id/work_time"
+                        style="@style/Text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@{viewModel.place.cost}"
+                        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                        app:layout_constraintStart_toStartOf="@id/guideline_left"
+                        app:layout_constraintTop_toBottomOf="@id/description"
+                        tools:text="@tools:sample/lorem" />
+
+                    <TextView
+                        android:id="@+id/cost"
+                        style="@style/Text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@{viewModel.place.workTime}"
+                        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                        app:layout_constraintStart_toStartOf="@id/guideline_left"
+                        app:layout_constraintTop_toBottomOf="@id/work_time"
+                        tools:text="@tools:sample/lorem" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray"
+                        android:visibility="@{Converter.toVisibility(viewModel.place.phone)}"
+                        app:layout_constraintBottom_toTopOf="@+id/phone" />
+
+                    <TextView
+                        android:id="@+id/phone"
+                        style="@style/Text.Contact"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:drawableStart="@drawable/ic_phone"
+                        android:paddingTop="24dp"
+                        android:text="@{viewModel.place.phone}"
+                        android:visibility="@{Converter.toVisibility(viewModel.place.phone)}"
+                        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                        app:layout_constraintStart_toStartOf="@id/guideline_left"
+                        app:layout_constraintTop_toBottomOf="@id/cost"
+                        tools:text="+7 (987) 765-43-21" />
+
+                    <android.support.constraint.Guideline
+                        android:id="@+id/guideline_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="24dp" />
+
+                    <android.support.constraint.Guideline
+                        android:id="@+id/guideline_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_end="24dp" />
+
+                </android.support.constraint.ConstraintLayout>
             </android.support.v4.widget.NestedScrollView>
         </android.support.design.widget.CoordinatorLayout>
+
+        <ImageButton
+            style="@style/Btn.Transparent.Back"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:onClick="@{viewModel::onClickBack}"
+            android:contentDescription="@string/back" />
     </FrameLayout>
 </layout>

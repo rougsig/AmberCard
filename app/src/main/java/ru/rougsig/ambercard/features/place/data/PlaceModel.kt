@@ -1,22 +1,20 @@
-package ru.rougsig.ambercard.common.models
+package ru.rougsig.ambercard.features.place.data
 
 import android.text.SpannableString
-import com.squareup.moshi.FromJson
 import com.squareup.moshi.Json
 import ru.rougsig.ambercard.R
-import ru.rougsig.ambercard.helpers.RawJson
-import ru.rougsig.ambercard.utils.JsonParser
+import ru.rougsig.ambercard.common.models.CategoryModel
 import ru.rougsig.ambercard.utils.TextUtils
 import ru.rougsig.ambercard.utils.defaultIfEmptyOrNull
 
 /**
  * Created by rougs on 11-Oct-17.
  */
-data class Place(
+data class PlaceModel(
         val id: Int,
         var name: String,
         var description: String,
-        @Json(name = "category_id") var category: List<Category>,
+        @Json(name = "category_id") var category: List<CategoryModel>,
         var photos: List<String>,
 
         @Json(name = "description_2") var workTime: String?,
@@ -35,6 +33,8 @@ data class Place(
 ) {
     fun getCost(): SpannableString = TextUtils.getTitleText(costText, costValue)
     fun getWorkTime(): SpannableString = TextUtils.getTitleText(R.string.defaults_work_text, workTime)
+    fun getPreView(): String = photos.first()
+    fun getCategoryIcon(): String = category.first().icon
 
     init {
         workTime = workTime.defaultIfEmptyOrNull(R.string.defaults_work_time)
