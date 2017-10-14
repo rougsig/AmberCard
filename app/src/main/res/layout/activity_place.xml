@@ -36,9 +36,8 @@
                     android:layout_height="256dp"
                     android:contentDescription="@string/preview"
                     android:scaleType="centerCrop"
-                    app:imageUrl="@{viewModel.imageUrl}"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:imageUrl="@{viewModel.place.photos[0]}"
+                    tools:background="@color/gray" />
 
                 <View
                     style="@style/Content.RadiusTop"
@@ -50,6 +49,8 @@
                     android:id="@+id/category_img"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    app:imageUrl="@{viewModel.place.category[0].icon}"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="@id/guideline_left"
                     app:layout_constraintTop_toBottomOf="@id/img"
                     tools:background="@color/gray" />
@@ -179,6 +180,4 @@
             android:visibility="@{!viewModel.isLoaded}"
             tools:visibility="gone" />
     </FrameLayout>
-
-
 </layout>

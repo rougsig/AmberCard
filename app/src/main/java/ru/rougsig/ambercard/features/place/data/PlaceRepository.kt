@@ -12,7 +12,7 @@ import ru.rougsig.ambercard.utils.JsonParser
 object PlaceRepository : Repository<Place> {
     override fun get(loaded: (Place) -> Unit) {
         loaded(
-                JsonParser.parser.adapter<Place>(Place::class.java).fromJson(RawJson.ab_one)!!
+                JsonParser.parser.adapter<Place>(Place::class.java).fromJson(RawJson.ab_two)!!
         )
     }
 }

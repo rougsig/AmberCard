@@ -17,11 +17,6 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
     val place = ObservableField<Place>()
     val isLoaded = ObservableBoolean(false)
 
-    @Bindable
-    fun getImageUrl(): String {
-        return "https://littleanimeblog.files.wordpress.com/2016/06/re-zero-puck.jpg"
-    }
-
     override fun onResume() {
         super.onResume()
         PlaceRepository.get { onPlaceLoaded(it) }
