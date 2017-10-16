@@ -1,9 +1,10 @@
 package ru.rougsig.ambercard.binding
 
+import android.databinding.BindingAdapter
 import android.databinding.BindingConversion
 import android.view.View
 import com.facebook.drawee.view.SimpleDraweeView
-import android.databinding.BindingAdapter
+import ru.rougsig.ambercard.common.API.REST
 
 
 /**
@@ -18,6 +19,6 @@ object BindingAdapters {
     @BindingAdapter("app:imageUrl")
     fun loadImage(view: SimpleDraweeView, imageUrl: String?) {
         if (!imageUrl.isNullOrEmpty())
-            view.setImageURI(RESTConst.baseURL + imageUrl)
+            view.setImageURI(REST.baseURL + imageUrl)
     }
 }

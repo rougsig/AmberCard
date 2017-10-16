@@ -6,12 +6,13 @@ import com.facebook.drawee.backends.pipeline.Fresco
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import ru.rougsig.ambercard.common.DB.Migration
-import java.security.SecureRandom
 
 
 /**
  * Created by rougs on 12-Oct-17.
  */
+
+// TODO кэш изображений
 class App : Application() {
     override fun onCreate() {
         super.onCreate()

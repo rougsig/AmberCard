@@ -3,6 +3,7 @@ package ru.rougsig.ambercard.common.API
 import retrofit2.Call
 import retrofit2.http.*
 import ru.rougsig.ambercard.features.place.data.PlaceModel
+import java.util.*
 
 /**
  * Created by rougs on 14-Oct-17.
@@ -21,11 +22,12 @@ import ru.rougsig.ambercard.features.place.data.PlaceModel
 //http://138.68.68.166:9999/api/1/wish/{id}
 
 interface RESTRoutes {
-    @POST("login/")
+    @FormUrlEncoded
+    @POST("login")
     fun login(
             @Field("username") user: String,
             @Field("password") pass: String
-    ): Call<String>
+    ): Call<Map<String, String>>
 
     @GET("point/{id}")
     fun getPlaceById(

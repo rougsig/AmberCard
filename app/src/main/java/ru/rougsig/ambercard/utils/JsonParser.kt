@@ -1,12 +1,11 @@
 package ru.rougsig.ambercard.utils
 
-import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
-import ru.rougsig.ambercard.common.models.CategoryModel
 import com.squareup.moshi.Types.newParameterizedType
 import io.realm.RealmList
+import ru.rougsig.ambercard.common.models.CategoryModel
 
 
 /**
@@ -17,7 +16,9 @@ class JsonParser private constructor() {
         val parser = Moshi.Builder()
                 .add(RealmListMoshiJsonAdapter())
                 .add(KotlinJsonAdapterFactory())
-                .build()!!
+                .build()!!.apply {
+            adapter<Map<String, String>>(Types.newParameterizedType(Map::class.java, String::class.java, String::class.java))
+        }
     }
 
     companion object {

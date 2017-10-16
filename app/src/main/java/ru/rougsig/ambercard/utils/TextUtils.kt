@@ -1,13 +1,13 @@
 package ru.rougsig.ambercard.utils
 
-import android.support.v4.content.ContextCompat
-import android.text.style.ForegroundColorSpan
-import ru.rougsig.ambercard.R
 import android.graphics.Typeface
+import android.support.v4.content.ContextCompat
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import ru.rougsig.ambercard.App
+import ru.rougsig.ambercard.R
 
 
 /**

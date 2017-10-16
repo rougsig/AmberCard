@@ -14,7 +14,7 @@ import ru.rougsig.ambercard.utils.defaultIfEmptyOrNull
 /**
  * Created by rougs on 11-Oct-17.
  */
-open class PlaceModel() : RealmObject() {
+open class PlaceModel : RealmObject() {
     @PrimaryKey
     var id: Int = 0
     @Required
