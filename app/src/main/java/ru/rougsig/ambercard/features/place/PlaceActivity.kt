@@ -12,6 +12,10 @@ import ru.rougsig.ambercard.databinding.ActivityPlaceBinding
 
 class PlaceActivity : BindingActivity<ActivityPlaceBinding, PlaceActivityVM>() {
 
+    companion object {
+        val EXTRA_ID = "ID"
+    }
+
     override fun onCreate(): PlaceActivityVM {
         return PlaceActivityVM(this)
     }

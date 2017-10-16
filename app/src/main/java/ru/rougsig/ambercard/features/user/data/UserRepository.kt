@@ -29,10 +29,10 @@ object UserRepository {
                         val token = response.body()!!["token"]!!
                         val user = UserModel()
                         user.login = login
-                        user.token = token
+                        user.token = "Token " + token
                         Realm.getDefaultInstance().executeTransaction { realm ->
+                            realm.where(UserModel::class.java).findAll().deleteAllFromRealm()
                             realm.copyToRealmOrUpdate(user)
-                            println(realm.where(UserModel::class.java).findAll().size)
                         }
                         onSuccess(user)
                     }
@@ -45,5 +45,19 @@ object UserRepository {
                 onFailure()
             }
         })
+    }
+
+    fun getUser(loaded: (user: UserModel?) -> Unit) {
+        Realm.getDefaultInstance().executeTransaction { realm ->
+            loaded(realm.where(UserModel::class.java).findFirst())
+        }
+    }
+
+    fun getToken(): String {
+        var token: String? = null
+        getUser { user ->
+            token = user!!.token
+        }
+        return token!!
     }
 }

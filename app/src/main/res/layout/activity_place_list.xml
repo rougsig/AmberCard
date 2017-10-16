@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="ru.rougsig.ambercard.features.place.ListPlaceActivityVM" />
+            type="ru.rougsig.ambercard.features.place.PlaceListActivityVM" />
     </data>
 
     <android.support.v7.widget.RecyclerView

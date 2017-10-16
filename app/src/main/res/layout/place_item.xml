@@ -19,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingBottom="12dp"
             android:paddingTop="16dp">
 
             <com.facebook.drawee.view.SimpleDraweeView
@@ -70,6 +69,7 @@
                 tools:text="Музей-квартира Altes Haus — Hufen И еще немного текста" />
 
             <TextView
+                android:id="@+id/description"
                 style="@style/Text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -80,6 +80,15 @@
                 app:layout_constraintStart_toStartOf="@id/guideline_left"
                 app:layout_constraintTop_toBottomOf="@id/title"
                 tools:text="Музей показывает обстановку семейного быта семьи семейного быта семьи семейного быта семьи" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/gray"
+                app:layout_constraintEnd_toEndOf="@id/parent"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/description" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline_left"

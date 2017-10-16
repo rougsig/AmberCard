@@ -3,6 +3,7 @@ package ru.rougsig.ambercard.common.API
 import retrofit2.Call
 import retrofit2.http.*
 import ru.rougsig.ambercard.features.place.data.PlaceModel
+import ru.rougsig.ambercard.features.user.data.UserRepository
 import java.util.*
 
 /**
@@ -31,8 +32,8 @@ interface RESTRoutes {
 
     @GET("point/{id}")
     fun getPlaceById(
-            @Header("Authorization") token: String,
-            @Path("id") id: Int
+            @Path("id") id: Int,
+            @Header("Authorization") token: String = UserRepository.getToken()
     ): Call<PlaceModel>
 
     // TODO me/

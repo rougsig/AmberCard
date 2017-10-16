@@ -1,5 +1,6 @@
 package ru.rougsig.ambercard.features.user
 
+import android.content.Intent
 import android.databinding.ObservableBoolean
 import android.view.View
 import android.widget.EditText
@@ -10,6 +11,8 @@ import com.basgeekball.awesomevalidation.utility.RegexTemplate
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel
 import ru.rougsig.ambercard.App.Companion.context
 import ru.rougsig.ambercard.R
+import ru.rougsig.ambercard.features.place.PlaceActivity
+import ru.rougsig.ambercard.features.place.PlaceListActivity
 import ru.rougsig.ambercard.features.user.data.UserModel
 import ru.rougsig.ambercard.features.user.data.UserRepository
 
@@ -25,6 +28,13 @@ class LoginActivityVM(activity: LoginActivity) : ActivityViewModel<LoginActivity
     val inLoading = ObservableBoolean(false)
 
     override fun onResume() {
+        UserRepository.getUser { user ->
+            if (user != null) {
+                activity.startActivity(Intent(activity, PlaceListActivity::class.java))
+                activity.finish()
+            }
+        }
+
         super.onResume()
         login = activity.findViewById(R.id.login)
         pass = activity.findViewById(R.id.pass)
@@ -47,17 +57,19 @@ class LoginActivityVM(activity: LoginActivity) : ActivityViewModel<LoginActivity
     }
 
     private fun onLoginSuccess(user: UserModel) {
+        activity.startActivity(Intent(activity, PlaceListActivity::class.java))
+        activity.finish()
         inLoading.set(false)
     }
 
     private fun onLoginFailure() {
-        inLoading.set(false)
         Toast.makeText(activity, context.getString(R.string.error_wtf), Toast.LENGTH_SHORT).show()
+        inLoading.set(false)
     }
 
     private fun onLoginUnauthorized() {
-        inLoading.set(false)
         pass.error = context.getString(R.string.error_pass)
         Toast.makeText(activity, context.getString(R.string.error_pass), Toast.LENGTH_SHORT).show()
+        inLoading.set(false)
     }
 }
