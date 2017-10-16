@@ -1,11 +1,19 @@
 package ru.rougsig.ambercard.common.models
 
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+import io.realm.annotations.Required
+
 /**
  * Created by rougs on 11-Oct-17.
  */
-data class CategoryModel(
-        val id: Int,
-        val name: String,
-        val icon: String,
-        val picture: String
-)
+open class CategoryModel : RealmObject() {
+    @PrimaryKey
+    var id: Int = 0
+    @Required
+    var name: String? = null
+    @Required
+    var icon: String? = null
+    @Required
+    var picture: String? = null
+}

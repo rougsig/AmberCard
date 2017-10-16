@@ -18,7 +18,6 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
 
     override fun onResume() {
         super.onResume()
-        PlaceRepository.get { onPlaceLoaded(it) }
     }
 
     private fun onPlaceLoaded(place: PlaceModel) {
