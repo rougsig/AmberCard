@@ -19,15 +19,12 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
     val place = ObservableField<PlaceModel>()
     val inLoading = ObservableBoolean(true)
 
-    override fun onResume() {
+    override fun onStart() {
+        super.onStart()
         PlaceRepository.getPlaceById(
                 activity.intent.extras.getInt(PlaceActivity.EXTRA_ID),
-                this::onLoadedSuccess,
-                this::onLoadedFailure,
-                this::onLoadedUnauthorized
+                this::onLoadedSuccess
         )
-
-        super.onResume()
     }
 
     private fun onLoadedSuccess(place: PlaceModel) {

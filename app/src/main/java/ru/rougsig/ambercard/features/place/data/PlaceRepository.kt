@@ -1,12 +1,9 @@
 package ru.rougsig.ambercard.features.place.data
 
 import io.realm.Realm
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import ru.rougsig.ambercard.common.API.REST.Companion.api
-import ru.rougsig.ambercard.features.user.data.UserModel
-import ru.rougsig.ambercard.features.user.data.UserRepository
+import ru.rougsig.ambercard.common.CommonRepository
+import ru.rougsig.ambercard.utils.enqueue
 
 /**
  * Created by rougs on 11-Oct-17.
@@ -14,33 +11,44 @@ import ru.rougsig.ambercard.features.user.data.UserRepository
 object PlaceRepository {
     fun getPlaceById(
             id: Int,
-            onSuccess: (place: PlaceModel) -> Unit,
-            onFailure: () -> Unit,
-            onUnauthorized: () -> Unit) {
+            onSuccess: (place: PlaceModel) -> Unit) {
         var place: PlaceModel? = null
         Realm.getDefaultInstance().executeTransaction { realm ->
             place = realm.where(PlaceModel::class.java).equalTo("id", id).findFirst()
         }
         if (place == null) {
-            api.getPlaceById(id).enqueue(object : Callback<PlaceModel> {
-                override fun onResponse(call: Call<PlaceModel>, response: Response<PlaceModel>) {
-                    when (response.code()) {
-                        200 -> {
-                            val place = response.body()!!
-                            Realm.getDefaultInstance().executeTransaction { realm ->
-                                realm.copyToRealmOrUpdate(place)
+            api.getPlaceById(id).enqueue(
+                    { _, response ->
+                        when (response.code()) {
+                            200 -> {
+                                val place = response.body()!!
+                                Realm.getDefaultInstance().executeTransaction { realm ->
+                                    realm.copyToRealmOrUpdate(place)
+                                }
+                                onSuccess(place)
                             }
-                            onSuccess(place)
                         }
-                        401 -> onUnauthorized()
-                    }
-                }
-
-                override fun onFailure(call: Call<PlaceModel>, t: Throwable?) {
-                    onFailure()
-                }
-            })
+                    },
+                    { _, t -> throw t }
+            )
         } else
             onSuccess(place!!)
+    }
+
+    fun getAllPlaces(
+            onSuccess: (places: List<PlaceModel>) -> Unit,
+            forceUpdate: Boolean = false
+    ) {
+        val list: List<PlaceModel> = Realm.getDefaultInstance().where(PlaceModel::class.java).findAll()!!
+        if (list.isEmpty() || forceUpdate) {
+            CommonRepository.getContent {
+                onSuccess(Realm.getDefaultInstance().where(PlaceModel::class.java).findAll()!!)
+            }
+        } else
+            onSuccess(list)
+    }
+
+    fun getPlacesByFilter(filter: Array<Int>): List<PlaceModel> {
+        return Realm.getDefaultInstance().where(PlaceModel::class.java).`in`("category.id", filter).findAll()
     }
 }

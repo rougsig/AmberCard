@@ -4,7 +4,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import ru.rougsig.ambercard.utils.JsonParser
+import ru.rougsig.ambercard.common.json.JsonParser
 
 
 /**

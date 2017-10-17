@@ -2,9 +2,10 @@ package ru.rougsig.ambercard.common.API
 
 import retrofit2.Call
 import retrofit2.http.*
+import ru.rougsig.ambercard.common.API.responses.ContentResponse
+import ru.rougsig.ambercard.common.API.responses.TokenResponse
 import ru.rougsig.ambercard.features.place.data.PlaceModel
 import ru.rougsig.ambercard.features.user.data.UserRepository
-import java.util.*
 
 /**
  * Created by rougs on 14-Oct-17.
@@ -28,7 +29,12 @@ interface RESTRoutes {
     fun login(
             @Field("username") user: String,
             @Field("password") pass: String
-    ): Call<Map<String, String>>
+    ): Call<TokenResponse>
+
+    @GET("content")
+    fun getContent(
+            @Header("Authorization") token: String = UserRepository.getToken()
+    ): Call<ContentResponse>
 
     @GET("point/{id}")
     fun getPlaceById(

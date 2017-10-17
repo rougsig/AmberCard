@@ -3,7 +3,7 @@ package ru.rougsig.ambercard.utils
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
 import io.realm.RealmList
-import ru.rougsig.ambercard.common.models.CategoryModel
+import ru.rougsig.ambercard.features.place.data.CategoryModel
 
 
 /**

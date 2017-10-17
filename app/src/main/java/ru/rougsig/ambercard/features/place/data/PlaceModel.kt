@@ -7,7 +7,7 @@ import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.Required
 import ru.rougsig.ambercard.R
-import ru.rougsig.ambercard.common.models.CategoryModel
+import ru.rougsig.ambercard.common.json.CategoryFromId
 import ru.rougsig.ambercard.utils.TextUtils
 import ru.rougsig.ambercard.utils.defaultIfEmptyOrNull
 
@@ -21,19 +21,23 @@ open class PlaceModel : RealmObject() {
     var name: String? = null
     @Required
     var description: String? = null
+    @CategoryFromId
     @Json(name = "category_id")
     @Required
     var category: RealmList<CategoryModel> = RealmList()
     var photos: RealmList<String> = RealmList()
     @Json(name = "description_2")
-    var workTime: String? = null
+    var time: String? = null
+        get() = field.defaultIfEmptyOrNull(R.string.defaults_work_time)
     var latitude: Float? = null
     var longitude: Float? = null
     var rate: Int? = null
     @Json(name = "cost_text")
     var costText: String = ""
+        get() = field.defaultIfEmptyOrNull(R.string.defaults_cost_text)
     @Json(name = "cost_sum")
     var costValue: String = ""
+        get() = field.defaultIfEmptyOrNull(R.string.defaults_cost_value)
     var phone: String? = null
     var site: String? = null
     @Json(name = "discount_min")
@@ -48,14 +52,8 @@ open class PlaceModel : RealmObject() {
     var peopleMax: Int? = null
 
     fun getCost(): SpannableString = TextUtils.getTitleText(costText, costValue)
-    fun getWorkTime(): SpannableString = TextUtils.getTitleText(R.string.defaults_work_text, workTime)
+    fun getWorkTime(): SpannableString = TextUtils.getTitleText(R.string.defaults_work_text, time)
     fun getPreView(): String = photos.first()!!
     fun getCategoryIcon(): String = category.first()!!.icon!!
-
-    init {
-        workTime = workTime.defaultIfEmptyOrNull(R.string.defaults_work_time)
-
-        costText = costText.defaultIfEmptyOrNull(R.string.defaults_cost_text)
-        costValue = costValue.defaultIfEmptyOrNull(R.string.defaults_cost_value)
-    }
+    fun getDiscount(): String = "-$discountMax%"
 }

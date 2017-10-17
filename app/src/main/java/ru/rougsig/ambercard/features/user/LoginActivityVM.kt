@@ -11,7 +11,6 @@ import com.basgeekball.awesomevalidation.utility.RegexTemplate
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel
 import ru.rougsig.ambercard.App.Companion.context
 import ru.rougsig.ambercard.R
-import ru.rougsig.ambercard.features.place.PlaceActivity
 import ru.rougsig.ambercard.features.place.PlaceListActivity
 import ru.rougsig.ambercard.features.user.data.UserModel
 import ru.rougsig.ambercard.features.user.data.UserRepository
@@ -27,15 +26,14 @@ class LoginActivityVM(activity: LoginActivity) : ActivityViewModel<LoginActivity
 
     val inLoading = ObservableBoolean(false)
 
-    override fun onResume() {
+    override fun onStart() {
+        super.onStart()
         UserRepository.getUser { user ->
             if (user != null) {
                 activity.startActivity(Intent(activity, PlaceListActivity::class.java))
                 activity.finish()
             }
         }
-
-        super.onResume()
         login = activity.findViewById(R.id.login)
         pass = activity.findViewById(R.id.pass)
 
@@ -50,7 +48,6 @@ class LoginActivityVM(activity: LoginActivity) : ActivityViewModel<LoginActivity
                     login.text.toString().trim(),
                     pass.text.toString().trim(),
                     this::onLoginSuccess,
-                    this::onLoginFailure,
                     this::onLoginUnauthorized
             )
         }

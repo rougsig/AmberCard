@@ -11,8 +11,6 @@
     </data>
 
     <!-- Немного поменял отступы чтобы, не было дырки снизу. -->
-    <!-- Да и вообще оно кривое, надо поправить. -->
-    <!-- TODO Идем делать PP -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

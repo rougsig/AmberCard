@@ -1,4 +1,4 @@
-package ru.rougsig.ambercard.common.models
+package ru.rougsig.ambercard.features.place.data
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey

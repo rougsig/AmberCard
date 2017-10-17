@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".features.place.PlaceListActivity" />
+        <activity android:name=".features.place.PlaceFilterActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

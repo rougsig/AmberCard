@@ -1,38 +1,87 @@
 package ru.rougsig.ambercard.features.place
 
+import android.app.Activity
 import android.content.Intent
+import android.databinding.ObservableBoolean
+import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel
-import android.support.v7.widget.LinearLayoutManager;
 import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.features.place.data.PlaceModel
+import ru.rougsig.ambercard.features.place.data.PlaceRepository
 import ru.rougsig.ambercard.features.place.helpers.PlaceAdapter
-import ru.rougsig.ambercard.helpers.RawJson
-import ru.rougsig.ambercard.utils.JsonParser
+import kotlin.collections.ArrayList
 
 /**
  * Created by rougs on 16-Oct-17.
  */
 
+
+// TODO Исправить косяк, когда нету инета, сделать CallBack на тост
 class PlaceListActivityVM(listActivity: PlaceListActivity) : ActivityViewModel<PlaceListActivity>(listActivity) {
-    override fun onResume() {
-        super.onResume()
-        val recycler = activity.findViewById<RecyclerView>(R.id.recycler)
-        recycler.setHasFixedSize(true)
-        recycler.layoutManager = LinearLayoutManager(activity)
-        recycler.adapter = PlaceAdapter(listOf(
-                JsonParser.parser.adapter(PlaceModel::class.java).fromJson(RawJson.ab_one)!!.apply { name = "1" },
-                JsonParser.parser.adapter(PlaceModel::class.java).fromJson(RawJson.ab_one)!!.apply { name = "2" },
-                JsonParser.parser.adapter(PlaceModel::class.java).fromJson(RawJson.ab_one)!!.apply { name = "3" },
-                JsonParser.parser.adapter(PlaceModel::class.java).fromJson(RawJson.ab_one)!!.apply { name = "4" },
-                JsonParser.parser.adapter(PlaceModel::class.java).fromJson(RawJson.ab_one)!!.apply { name = "5" },
-                JsonParser.parser.adapter(PlaceModel::class.java).fromJson(RawJson.ab_one)!!.apply { name = "6" },
-                JsonParser.parser.adapter(PlaceModel::class.java).fromJson(RawJson.ab_one)!!.apply { name = "7" },
-                JsonParser.parser.adapter(PlaceModel::class.java).fromJson(RawJson.ab_one)!!.apply { name = "8" }
-        ), { place ->
-            val intent = Intent(activity, PlaceActivity::class.java)
-            intent.putExtra(PlaceActivity.EXTRA_ID, place.id)
-            activity.startActivity(intent)
-        })
+    private var recycler: RecyclerView? = null
+    private var refresh: SwipeRefreshLayout? = null
+    val inLoading = ObservableBoolean(true)
+    var filter: ArrayList<Int>? = null
+
+    companion object {
+        val FILTER_CODE = 1
+        val FILTER_DATA = "filterData"
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (refresh == null) {
+            refresh = activity.findViewById(R.id.refresh)
+            refresh!!.setOnRefreshListener {
+                load(true)
+            }
+        }
+        if (recycler == null) {
+            recycler = activity.findViewById(R.id.recycler)
+            recycler!!.layoutManager = LinearLayoutManager(activity)
+            load()
+        }
+    }
+
+    fun onClickFilter(view: View) {
+        val intent = Intent(activity, PlaceFilterActivity::class.java)
+        if (filter != null)
+            intent.putIntegerArrayListExtra(FILTER_DATA, filter)
+        activity.startActivityForResult(intent, FILTER_CODE)
+    }
+
+    private fun load(forceUpdate: Boolean = false) {
+        PlaceRepository.getAllPlaces(this::placesLoaded, forceUpdate)
+    }
+
+    private fun onClickPlace(place: PlaceModel) {
+        val intent = Intent(activity, PlaceActivity::class.java)
+        intent.putExtra(PlaceActivity.EXTRA_ID, place.id)
+        activity.startActivity(intent)
+    }
+
+    private fun placesLoaded(places: List<PlaceModel>) {
+        recycler!!.adapter = PlaceAdapter(
+                places,
+                this::onClickPlace
+        )
+        println(places.size)
+        recycler!!.adapter.notifyDataSetChanged()
+        refresh!!.isRefreshing = false
+        inLoading.set(false)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        if (requestCode == FILTER_CODE && resultCode == Activity.RESULT_OK) {
+            val filter = data.extras.getIntegerArrayList(FILTER_DATA)
+            recycler!!.adapter = PlaceAdapter(
+                    PlaceRepository.getPlacesByFilter(filter.toTypedArray()),
+                    this::onClickPlace
+            )
+            recycler!!.adapter.notifyDataSetChanged()
+        }
     }
 }

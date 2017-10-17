@@ -37,6 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
+                    app:contentScrim="@color/transparent"
                     app:layout_scrollFlags="scroll">
 
                     <com.facebook.drawee.view.SimpleDraweeView
@@ -55,7 +56,7 @@
 
                     <View
                         android:layout_width="wrap_content"
-                        android:layout_height="24dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="bottom"
                         android:background="@drawable/bg_content_corner_top" />
                 </android.support.design.widget.CollapsingToolbarLayout>
@@ -63,13 +64,13 @@
 
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/parent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:paddingBottom="24dp">
 
                     <com.facebook.drawee.view.SimpleDraweeView
@@ -198,11 +199,18 @@
             </android.support.v4.widget.NestedScrollView>
         </android.support.design.widget.CoordinatorLayout>
 
-        <ImageButton
-            style="@style/Btn.Transparent.Back"
-            android:layout_marginStart="16dp"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:contentDescription="@string/back"
-            android:onClick="@{viewModel::onClickBack}" />
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent">
+
+            <ImageButton
+                style="@style/Btn.Transparent.Back"
+                android:contentDescription="@string/back"
+                android:onClick="@{viewModel::onClickBack}" />
+        </android.support.v7.widget.Toolbar>
     </FrameLayout>
 </layout>

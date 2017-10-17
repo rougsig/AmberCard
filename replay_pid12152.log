@@ -4643,7 +4643,7 @@ instanceKlass org/jetbrains/kotlin/com/intellij/util/containers/ConcurrentLongOb
 instanceKlass org/jetbrains/kotlin/com/intellij/util/containers/ConcurrentLongObjectMap$LongEntry
 instanceKlass org/jetbrains/kotlin/com/intellij/util/containers/ConcurrentLongObjectHashMap
 instanceKlass org/jetbrains/kotlin/com/intellij/openapi/progress/ProgressIndicator
-instanceKlass org/jetbrains/kotlin/com/intellij/psi/filters/ElementFilter
+instanceKlass org/jetbrains/kotlin/com/intellij/psi/filter/ElementFilter
 instanceKlass org/jetbrains/kotlin/com/intellij/openapi/util/FieldCache
 instanceKlass org/jetbrains/kotlin/com/intellij/psi/meta/MetaDataRegistrar
 instanceKlass org/jetbrains/kotlin/com/intellij/psi/PsiReferenceService
