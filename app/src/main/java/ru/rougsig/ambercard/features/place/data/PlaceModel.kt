@@ -9,8 +9,8 @@ import io.realm.annotations.Required
 import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.common.json.CategoryFromId
 import ru.rougsig.ambercard.utils.ResourceUtils.getString
-import ru.rougsig.ambercard.utils.TextUtils
 import ru.rougsig.ambercard.utils.defaultIfEmptyOrNull
+import ru.rougsig.ambercard.utils.getTitleText
 
 /**
  * Created by rougs on 11-Oct-17.
@@ -56,8 +56,8 @@ open class PlaceModel : RealmObject() {
     @Json(name = "max_people")
     var peopleMax: Int? = 0
 
-    fun getCost(): SpannableString = TextUtils.getTitleText(costText, costValue)
-    fun getWorkTime(): SpannableString = TextUtils.getTitleText(R.string.defaults_work_text, time)
+    fun getCost(): SpannableString = getTitleText(costText, costValue)
+    fun getWorkTime(): SpannableString = getTitleText(R.string.defaults_work_text, time)
     fun getPreView(): String = photos.first()!!
     fun getCategoryIcon(): String = category.first()!!.icon
     fun getDiscount(): String = "-$discountMax%"

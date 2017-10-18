@@ -6,6 +6,7 @@ import android.view.View;
 import ru.yandex.yandexmapkit.MapView;
 import ru.yandex.yandexmapkit.OverlayManager;
 import ru.yandex.yandexmapkit.map.OnMapListener;
+import ru.yandex.yandexmapkit.net.Downloader;
 import ru.yandex.yandexmapkit.overlay.balloon.BalloonItem;
 import ru.yandex.yandexmapkit.utils.GeoPoint;
 import ru.yandex.yandexmapkit.utils.Point;
@@ -97,5 +98,9 @@ public class MapController {
 
     public GeoPoint getGeoPoint(ScreenPoint screenPoint) {
         return mc.getGeoPoint(screenPoint);
+    }
+
+    public Downloader getDownloader() {
+        return mc.getDownloader();
     }
 }

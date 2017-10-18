@@ -181,6 +181,28 @@
                         app:layout_constraintTop_toBottomOf="@id/cost"
                         tools:text="+7 (987) 765-43-21" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray"
+                        android:visibility="@{Converter.toVisibility(viewModel.distance)}"
+                        app:layout_constraintBottom_toTopOf="@+id/distance" />
+
+                    <TextView
+                        android:id="@+id/distance"
+                        style="@style/Text.Contact"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:drawableStart="@drawable/ic_phone"
+                        android:paddingTop="24dp"
+                        android:text="@{viewModel.distance + ` | ` + viewModel.address}"
+                        android:visibility="@{Converter.toVisibility(viewModel.distance)}"
+                        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                        app:layout_constraintStart_toStartOf="@id/guideline_left"
+                        app:layout_constraintTop_toBottomOf="@id/phone"
+                        tools:text="0.9км" />
+
                     <ru.rougsig.ambercard.custom.yandexMap.CustomMapView
                         android:id="@+id/map"
                         android:layout_width="match_parent"
@@ -188,7 +210,7 @@
                         android:layout_marginTop="24dp"
                         android:apiKey="1234567890"
                         android:tag="static"
-                        app:layout_constraintTop_toBottomOf="@id/phone"
+                        app:layout_constraintTop_toBottomOf="@id/distance"
                         tools:background="@color/gray" />
 
                     <View

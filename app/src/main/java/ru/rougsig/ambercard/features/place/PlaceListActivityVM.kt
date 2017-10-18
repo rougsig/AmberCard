@@ -28,18 +28,22 @@ class PlaceListActivityVM(listActivity: PlaceListActivity) : ActivityViewModel<P
     val inLoading = ObservableBoolean(true)
     var filter: ArrayList<Int>? = null
 
+    private var init = false
+
     companion object {
         val FILTER_CODE = 1
         val FILTER_DATA = "filterData"
     }
 
     override fun onStart() {
-        super.onStart()
-        refresh.setOnRefreshListener {
-            load(true)
+        if (!init) {
+            refresh.setOnRefreshListener {
+                load(true)
+            }
+            recycler.layoutManager = LinearLayoutManager(activity)
+            load()
+            init = true
         }
-        recycler.layoutManager = LinearLayoutManager(activity)
-        load()
     }
 
     fun onClickFilter(view: View) {
