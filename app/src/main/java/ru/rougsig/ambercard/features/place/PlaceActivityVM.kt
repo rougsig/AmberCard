@@ -1,5 +1,6 @@
 package ru.rougsig.ambercard.features.place
 
+import android.annotation.SuppressLint
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.view.View
@@ -9,12 +10,6 @@ import ru.rougsig.ambercard.App.Companion.context
 import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.features.place.data.PlaceModel
 import ru.rougsig.ambercard.features.place.data.PlaceRepository
-import ru.rougsig.ambercard.custom.yandexMap.MapController
-import ru.rougsig.ambercard.utils.ResourceUtils.getDrawable
-import ru.yandex.yandexmapkit.overlay.Overlay
-import ru.yandex.yandexmapkit.overlay.OverlayItem
-import ru.yandex.yandexmapkit.utils.GeoPoint
-
 /**
  * Created by rougs on 11-Oct-17.
  */
@@ -22,10 +17,8 @@ import ru.yandex.yandexmapkit.utils.GeoPoint
 class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity>(activity) {
     val place = ObservableField<PlaceModel>()
     val inLoading = ObservableBoolean(true)
-    private val map = activity.binding.map
-    private val mapController = MapController(map)
-    private val mapOverlayManager = mapController.overlayManager
-    private val mapOverlay = Overlay(map.mapController)
+    val map = activity.binding.map
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onStart() {
         super.onStart()
         PlaceRepository.getPlaceById(
@@ -33,23 +26,10 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
                 this::onLoadedSuccess,
                 this::onLoadedFailure
         )
-        activity.binding.scroll.requestDisallowInterceptTouchEvent(true)
     }
 
     private fun onLoadedSuccess(place: PlaceModel) {
         this.place.set(place)
-        val point = GeoPoint(
-                place.latitude!!,
-                place.longitude!!
-        )
-        mapOverlay.addOverlayItem(
-                OverlayItem(
-                        point,
-                        getDrawable(R.drawable.ic_pin))
-        )
-        mapController.overlayManager.addOverlay(mapOverlay)
-        mapController.setPositionAnimationTo(point, 14f)
-        map.viewParent = activity.binding.scroll
         inLoading.set(false)
     }
 

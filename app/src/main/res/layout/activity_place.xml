@@ -181,7 +181,7 @@
                         app:layout_constraintTop_toBottomOf="@id/cost"
                         tools:text="+7 (987) 765-43-21" />
 
-                    <ru.rougsig.ambercard.custom.yandexMap.CustomMapView
+                    <ru.rougsig.ambercard.custom.map.YandexMap
                         android:id="@+id/map"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
@@ -189,7 +189,8 @@
                         android:apiKey="1234567890"
                         android:tag="static"
                         app:layout_constraintTop_toBottomOf="@id/phone"
-                        tools:background="@color/gray" />
+                        tools:background="@color/gray"
+                        tools:ignore="WebViewLayout" />
 
                     <View
                         android:layout_width="match_parent"
