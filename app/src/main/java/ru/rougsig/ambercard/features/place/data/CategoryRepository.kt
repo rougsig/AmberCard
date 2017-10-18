@@ -7,16 +7,16 @@ import io.realm.Realm
  */
 object CategoryRepository {
     fun getCategoryById(id: Int): CategoryModel {
-        var category: CategoryModel? = Realm.getDefaultInstance().where(CategoryModel::class.java).equalTo("id", id).findFirst()
+        var category: CategoryModel? = getNullableCategoryById(id)
         return if (category == null) {
-            Realm.getDefaultInstance().executeTransaction { realm ->
-                category = CategoryModel().apply { this.id = id }
-                realm.insert(category!!)
-            }
-            category!!
+            category = CategoryModel().apply { this.id = id }
+            Realm.getDefaultInstance().executeTransaction { it.insert(category!!) }
+            category
         } else
-            category!!
+            category
     }
+
+    private fun getNullableCategoryById(id: Int): CategoryModel? = Realm.getDefaultInstance().where(CategoryModel::class.java).equalTo("id", id).findFirst()
 
     fun getAllCategory(): List<CategoryModel> = Realm.getDefaultInstance().where(CategoryModel::class.java).findAll()!!
 }
