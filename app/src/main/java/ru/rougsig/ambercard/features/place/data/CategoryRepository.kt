@@ -10,7 +10,7 @@ object CategoryRepository {
         var category: CategoryModel? = Realm.getDefaultInstance().where(CategoryModel::class.java).equalTo("id", id).findFirst()
         return if (category == null) {
             Realm.getDefaultInstance().executeTransaction { realm ->
-                category = CategoryModel(id)
+                category = CategoryModel().apply { this.id = id }
                 realm.insert(category!!)
             }
             category!!
@@ -18,5 +18,5 @@ object CategoryRepository {
             category!!
     }
 
-    fun getAllCategory(): List<CategoryModel> = Realm.getDefaultInstance().where(CategoryModel::class.java).findAll()
+    fun getAllCategory(): List<CategoryModel> = Realm.getDefaultInstance().where(CategoryModel::class.java).findAll()!!
 }

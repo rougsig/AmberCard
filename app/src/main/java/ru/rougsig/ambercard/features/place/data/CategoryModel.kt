@@ -7,32 +7,13 @@ import io.realm.annotations.Required
 /**
  * Created by rougs on 11-Oct-17.
  */
-open class CategoryModel constructor() : RealmObject() {
+open class CategoryModel : RealmObject() {
     @PrimaryKey
     var id: Int = 0
-        private set
-
     @Required
-    lateinit var name: String
-        private set
-
+    var name: String = ""
     @Required
-    lateinit var icon: String
-        private set
-
+    var icon: String = ""
     @Required
-    lateinit var picture: String
-        private set
-
-    constructor(
-            id: Int,
-            name: String = "",
-            icon: String = "",
-            picture: String = ""
-    ) : this() {
-        this.id = id
-        this.name = name
-        this.icon = icon
-        this.picture = picture
-    }
+    var picture: String = ""
 }
