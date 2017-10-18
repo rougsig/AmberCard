@@ -1,6 +1,7 @@
 package ru.rougsig.ambercard.common
 
 import io.realm.Realm
+import mu.KotlinLogging
 import ru.rougsig.ambercard.common.API.REST.Companion.api
 import ru.rougsig.ambercard.utils.enqueue
 
@@ -8,8 +9,11 @@ import ru.rougsig.ambercard.utils.enqueue
  * Created by rougs on 17-Oct-17.
  */
 object CommonRepository {
+    private val logger = KotlinLogging.logger("CommonRepository")
+
     fun getContent(
-            onSuccess: () -> Unit
+            onSuccess: () -> Unit,
+            onFailure: () -> Unit
     ) {
         api.getContent().enqueue(
                 { _, response ->
@@ -22,9 +26,13 @@ object CommonRepository {
                             }
                             onSuccess()
                         }
+                        else -> onFailure()
                     }
                 },
-                { _, t -> throw t }
+                { _, t ->
+                    logger.error("getContent", t)
+                    onFailure()
+                }
         )
     }
 }

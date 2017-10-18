@@ -82,11 +82,11 @@ open class PlaceModel constructor() : RealmObject() {
         private set
 
     @Json(name = "min_people")
-    var peopleMin: Int = 0
+    var peopleMin: Int? = 0
         private set
 
     @Json(name = "max_people")
-    var peopleMax: Int = 0
+    var peopleMax: Int? = 0
         private set
 
     fun getCost(): SpannableString = TextUtils.getTitleText(costText, costValue)

@@ -10,8 +10,6 @@ import ru.rougsig.ambercard.features.place.data.CategoryModel
  * Created by rougs on 15-Oct-17.
  */
 class RealmListMoshiJsonAdapter {
-    // [QUESTION] Пока не придумал как это сделать по-нормальному. Есть варианты, кроме annotation processing?
-
     @ToJson
     fun toJsonCategory(realmList: RealmList<CategoryModel>): Collection<CategoryModel> {
         return realmList

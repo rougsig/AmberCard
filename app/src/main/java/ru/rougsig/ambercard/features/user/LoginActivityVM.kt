@@ -12,7 +12,6 @@ import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel
 import ru.rougsig.ambercard.App.Companion.context
 import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.features.place.PlaceListActivity
-import ru.rougsig.ambercard.features.user.data.UserModel
 import ru.rougsig.ambercard.features.user.data.UserRepository
 
 /**
@@ -28,11 +27,9 @@ class LoginActivityVM(activity: LoginActivity) : ActivityViewModel<LoginActivity
 
     override fun onStart() {
         super.onStart()
-        UserRepository.getUser { user ->
-            if (user != null) {
-                activity.startActivity(Intent(activity, PlaceListActivity::class.java))
-                activity.finish()
-            }
+        if (UserRepository.getUser() != null) {
+            activity.startActivity(Intent(activity, PlaceListActivity::class.java))
+            activity.finish()
         }
         login = activity.findViewById(R.id.login)
         pass = activity.findViewById(R.id.pass)
@@ -44,16 +41,17 @@ class LoginActivityVM(activity: LoginActivity) : ActivityViewModel<LoginActivity
     fun onClickLoginBtn(view: View) {
         if (validation.validate()) {
             inLoading.set(true)
-            UserRepository.getToken(
+            UserRepository.login(
                     login.text.toString().trim(),
                     pass.text.toString().trim(),
                     this::onLoginSuccess,
-                    this::onLoginUnauthorized
+                    this::onLoginUnauthorized,
+                    this::onLoginFailure
             )
         }
     }
 
-    private fun onLoginSuccess(user: UserModel) {
+    private fun onLoginSuccess() {
         activity.startActivity(Intent(activity, PlaceListActivity::class.java))
         activity.finish()
         inLoading.set(false)

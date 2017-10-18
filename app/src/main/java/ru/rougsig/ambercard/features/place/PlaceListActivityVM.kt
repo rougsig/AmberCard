@@ -7,7 +7,9 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.Toast
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel
+import ru.rougsig.ambercard.App.Companion.context
 import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.features.place.data.PlaceModel
 import ru.rougsig.ambercard.features.place.data.PlaceRepository
@@ -54,16 +56,10 @@ class PlaceListActivityVM(listActivity: PlaceListActivity) : ActivityViewModel<P
     }
 
     private fun load(forceUpdate: Boolean = false) {
-        PlaceRepository.getAllPlaces(this::placesLoaded, forceUpdate)
+        PlaceRepository.getAllPlaces(this::onLoadedSuccess, this::onLoadedFailure, forceUpdate)
     }
 
-    private fun onClickPlace(place: PlaceModel) {
-        val intent = Intent(activity, PlaceActivity::class.java)
-        intent.putExtra(PlaceActivity.EXTRA_ID, place.id)
-        activity.startActivity(intent)
-    }
-
-    private fun placesLoaded(places: List<PlaceModel>) {
+    private fun onLoadedSuccess(places: List<PlaceModel>) {
         recycler!!.adapter = PlaceAdapter(
                 places,
                 this::onClickPlace
@@ -72,6 +68,18 @@ class PlaceListActivityVM(listActivity: PlaceListActivity) : ActivityViewModel<P
         recycler!!.adapter.notifyDataSetChanged()
         refresh!!.isRefreshing = false
         inLoading.set(false)
+    }
+
+    private fun onClickPlace(place: PlaceModel) {
+        val intent = Intent(activity, PlaceActivity::class.java)
+        intent.putExtra(PlaceActivity.EXTRA_ID, place.id)
+        activity.startActivity(intent)
+    }
+
+    private fun onLoadedFailure() {
+        inLoading.set(false)
+        refresh!!.isRefreshing = false
+        Toast.makeText(activity, context.getString(R.string.error_wtf), Toast.LENGTH_SHORT).show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {

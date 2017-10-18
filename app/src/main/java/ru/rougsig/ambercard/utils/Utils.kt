@@ -9,8 +9,6 @@ import retrofit2.Response
  * Created by rougs on 16-Oct-17.
  */
 
-fun transaction(transaction: (realm: Realm) -> Unit) = Realm.Transaction(transaction)
-
 fun <T> Call<T>.enqueue(
         onResponse: (call: Call<T>, response: Response<T>) -> Unit,
         onFailure: (call: Call<T>, t: Throwable) -> Unit

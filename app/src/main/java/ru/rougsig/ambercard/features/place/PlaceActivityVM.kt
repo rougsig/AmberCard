@@ -23,7 +23,8 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
         super.onStart()
         PlaceRepository.getPlaceById(
                 activity.intent.extras.getInt(PlaceActivity.EXTRA_ID),
-                this::onLoadedSuccess
+                this::onLoadedSuccess,
+                this::onLoadedFailure
         )
     }
 
@@ -33,11 +34,6 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
     }
 
     private fun onLoadedFailure() {
-        inLoading.set(false)
-        Toast.makeText(activity, context.getString(R.string.error_wtf), Toast.LENGTH_SHORT).show()
-    }
-
-    private fun onLoadedUnauthorized() {
         inLoading.set(false)
         Toast.makeText(activity, context.getString(R.string.error_wtf), Toast.LENGTH_SHORT).show()
     }

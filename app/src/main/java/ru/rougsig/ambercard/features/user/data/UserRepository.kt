@@ -1,18 +1,23 @@
 package ru.rougsig.ambercard.features.user.data
 
 import io.realm.Realm
+import mu.KotlinLogging
 import ru.rougsig.ambercard.common.API.REST
+import ru.rougsig.ambercard.common.CommonRepository
 import ru.rougsig.ambercard.utils.enqueue
 
 /**
  * Created by rougs on 16-Oct-17.
  */
 object UserRepository {
-    fun getToken(
+    private val logger = KotlinLogging.logger("UserRepository")
+
+    fun login(
             login: String,
             pass: String,
-            onSuccess: (user: UserModel) -> Unit,
-            onLoginUnauthorized: () -> Unit
+            onSuccess: () -> Unit,
+            onUnauthorized: () -> Unit,
+            onFailure: () -> Unit
     ) {
         REST.api.login(
                 login,
@@ -30,26 +35,20 @@ object UserRepository {
                                 realm.where(UserModel::class.java).findAll().deleteAllFromRealm()
                                 realm.copyToRealmOrUpdate(user)
                             }
-                            onSuccess(user)
+                            onSuccess()
                         }
-                        401 -> onLoginUnauthorized()
+                        401 -> onUnauthorized()
+                        else -> onFailure()
                     }
                 },
-                { _, t -> throw t }
+                { _, t ->
+                    logger.error("login", t)
+                    onFailure()
+                }
         )
     }
 
-    fun getUser(loaded: (user: UserModel?) -> Unit) {
-        Realm.getDefaultInstance().executeTransaction { realm ->
-            loaded(realm.where(UserModel::class.java).findFirst())
-        }
-    }
+    fun getUser(): UserModel? = Realm.getDefaultInstance().where(UserModel::class.java).findFirst()
 
-    fun getToken(): String {
-        var token: String? = null
-        getUser { user ->
-            token = user!!.token
-        }
-        return token!!
-    }
+    fun getToken(): String = getUser()!!.token
 }
