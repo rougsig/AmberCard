@@ -7,9 +7,21 @@ import io.realm.annotations.Required
 /**
  * Created by rougs on 16-Oct-17.
  */
-open class UserModel : RealmObject() {
+open class UserModel constructor() : RealmObject() {
     @PrimaryKey
-    var login: String? = null
     @Required
-    var token: String? = null
+    lateinit var login: String
+        private set
+
+    @Required
+    lateinit var token: String
+        private set
+
+    constructor(
+            login: String,
+            token: String
+    ) : this() {
+        this.login = login
+        this.token = token
+    }
 }

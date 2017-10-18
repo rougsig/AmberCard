@@ -10,13 +10,8 @@ object CategoryRepository {
         var category: CategoryModel? = Realm.getDefaultInstance().where(CategoryModel::class.java).equalTo("id", id).findFirst()
         return if (category == null) {
             Realm.getDefaultInstance().executeTransaction { realm ->
-                category = CategoryModel().apply {
-                    this.id = id
-                    this.name = "No name"
-                    this.icon = ""
-                    this.picture = ""
-                }
-                realm.insert(category)
+                category = CategoryModel(id)
+                realm.insert(category!!)
             }
             category!!
         } else

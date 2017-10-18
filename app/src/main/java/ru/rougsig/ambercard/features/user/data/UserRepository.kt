@@ -22,9 +22,10 @@ object UserRepository {
                     when (response.code()) {
                         200 -> {
                             val token = response.body()!!.token
-                            val user = UserModel()
-                            user.login = login
-                            user.token = "Token " + token
+                            val user = UserModel(
+                                    login,
+                                    "token $token"
+                            )
                             Realm.getDefaultInstance().executeTransaction { realm ->
                                 realm.where(UserModel::class.java).findAll().deleteAllFromRealm()
                                 realm.copyToRealmOrUpdate(user)

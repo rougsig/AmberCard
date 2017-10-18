@@ -6,6 +6,7 @@ import com.facebook.drawee.backends.pipeline.Fresco
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import ru.rougsig.ambercard.common.DB.Migration
+import ru.rougsig.ambercard.features.user.data.UserModel
 
 
 /**
