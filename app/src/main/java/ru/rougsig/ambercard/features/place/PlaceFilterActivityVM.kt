@@ -17,14 +17,11 @@ import kotlin.collections.ArrayList
  */
 
 class PlaceFilterActivityVM(activity: PlaceFilterActivity) : ActivityViewModel<PlaceFilterActivity>(activity) {
-    private var recycler: RecyclerView? = null
+    private val recycler: RecyclerView = activity.binding.recycler
     val filter: ArrayList<Int> = ArrayList()
     override fun onStart() {
-        if (recycler == null) {
-            recycler = activity.findViewById(R.id.recycler)
-            recycler!!.layoutManager = LinearLayoutManager(activity)
-            recycler!!.adapter = FilterCategoryAdapter(CategoryRepository.getAllCategory(), filter)
-        }
+        recycler.layoutManager = LinearLayoutManager(activity)
+        recycler.adapter = FilterCategoryAdapter(CategoryRepository.getAllCategory(), filter)
     }
 
     fun submitFilter(view: View) = submitFilter()

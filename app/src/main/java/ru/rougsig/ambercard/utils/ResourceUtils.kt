@@ -7,4 +7,5 @@ import ru.rougsig.ambercard.App
  */
 object ResourceUtils {
     fun getString(res: Int) = App.context.getString(res)!!
+    fun getDrawable(res: Int) = App.context.resources.getDrawable(res)!!
 }

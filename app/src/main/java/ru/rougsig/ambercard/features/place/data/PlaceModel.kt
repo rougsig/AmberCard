@@ -32,8 +32,10 @@ open class PlaceModel : RealmObject() {
     @Json(name = "description_2")
     var time: String = getString(R.string.defaults_work_time)
         get() = field.defaultIfEmptyOrNull(R.string.defaults_work_time)
-    var latitude: Float? = null
-    var longitude: Float? = null
+    @Required
+    var latitude: Double? = null
+    @Required
+    var longitude: Double? = null
     var rate: Int = 0
     @Json(name = "cost_text")
     var costText: String = getString(R.string.defaults_cost_text)

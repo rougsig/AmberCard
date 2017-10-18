@@ -63,6 +63,7 @@
             </android.support.design.widget.AppBarLayout>
 
             <android.support.v4.widget.NestedScrollView
+                android:id="@+id/scroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -70,8 +71,7 @@
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/parent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="24dp">
+                    android:layout_height="wrap_content">
 
                     <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/category_img"
@@ -181,6 +181,22 @@
                         app:layout_constraintTop_toBottomOf="@id/cost"
                         tools:text="+7 (987) 765-43-21" />
 
+                    <ru.rougsig.ambercard.custom.yandexMap.CustomMapView
+                        android:id="@+id/map"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="24dp"
+                        android:apiKey="1234567890"
+                        android:tag="static"
+                        app:layout_constraintTop_toBottomOf="@id/phone"
+                        tools:background="@color/gray" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp"
+                        android:background="@drawable/shadow_bottom"
+                        app:layout_constraintTop_toTopOf="@id/map" />
+
                     <android.support.constraint.Guideline
                         android:id="@+id/guideline_left"
                         android:layout_width="wrap_content"
@@ -203,8 +219,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
             android:background="@android:color/transparent">
 
             <ImageButton

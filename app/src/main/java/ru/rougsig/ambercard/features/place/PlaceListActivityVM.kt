@@ -23,8 +23,8 @@ import kotlin.collections.ArrayList
 
 // TODO Исправить косяк, когда нету инета, сделать CallBack на тост
 class PlaceListActivityVM(listActivity: PlaceListActivity) : ActivityViewModel<PlaceListActivity>(listActivity) {
-    private var recycler: RecyclerView? = null
-    private var refresh: SwipeRefreshLayout? = null
+    private val recycler: RecyclerView = activity.binding.recycler
+    private val refresh: SwipeRefreshLayout = activity.binding.refresh
     val inLoading = ObservableBoolean(true)
     var filter: ArrayList<Int>? = null
 
@@ -35,17 +35,11 @@ class PlaceListActivityVM(listActivity: PlaceListActivity) : ActivityViewModel<P
 
     override fun onStart() {
         super.onStart()
-        if (refresh == null) {
-            refresh = activity.findViewById(R.id.refresh)
-            refresh!!.setOnRefreshListener {
-                load(true)
-            }
+        refresh.setOnRefreshListener {
+            load(true)
         }
-        if (recycler == null) {
-            recycler = activity.findViewById(R.id.recycler)
-            recycler!!.layoutManager = LinearLayoutManager(activity)
-            load()
-        }
+        recycler.layoutManager = LinearLayoutManager(activity)
+        load()
     }
 
     fun onClickFilter(view: View) {
@@ -60,13 +54,13 @@ class PlaceListActivityVM(listActivity: PlaceListActivity) : ActivityViewModel<P
     }
 
     private fun onLoadedSuccess(places: List<PlaceModel>) {
-        recycler!!.adapter = PlaceAdapter(
+        recycler.adapter = PlaceAdapter(
                 places,
                 this::onClickPlace
         )
         println(places.size)
-        recycler!!.adapter.notifyDataSetChanged()
-        refresh!!.isRefreshing = false
+        recycler.adapter.notifyDataSetChanged()
+        refresh.isRefreshing = false
         inLoading.set(false)
     }
 
@@ -78,18 +72,18 @@ class PlaceListActivityVM(listActivity: PlaceListActivity) : ActivityViewModel<P
 
     private fun onLoadedFailure() {
         inLoading.set(false)
-        refresh!!.isRefreshing = false
+        refresh.isRefreshing = false
         Toast.makeText(activity, context.getString(R.string.error_wtf), Toast.LENGTH_SHORT).show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         if (requestCode == FILTER_CODE && resultCode == Activity.RESULT_OK) {
             val filter = data.extras.getIntegerArrayList(FILTER_DATA)
-            recycler!!.adapter = PlaceAdapter(
+            recycler.adapter = PlaceAdapter(
                     PlaceRepository.getPlacesByFilter(filter.toTypedArray()),
                     this::onClickPlace
             )
-            recycler!!.adapter.notifyDataSetChanged()
+            recycler.adapter.notifyDataSetChanged()
         }
     }
 }

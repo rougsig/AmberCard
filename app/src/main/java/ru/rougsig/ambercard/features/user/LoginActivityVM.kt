@@ -20,8 +20,8 @@ import ru.rougsig.ambercard.features.user.data.UserRepository
 
 class LoginActivityVM(activity: LoginActivity) : ActivityViewModel<LoginActivity>(activity) {
     private val validation = AwesomeValidation(ValidationStyle.BASIC)
-    private lateinit var login: EditText
-    private lateinit var pass: EditText
+    private val login: EditText = activity.binding.login
+    private val pass: EditText = activity.binding.pass
 
     val inLoading = ObservableBoolean(false)
 
@@ -31,9 +31,6 @@ class LoginActivityVM(activity: LoginActivity) : ActivityViewModel<LoginActivity
             activity.startActivity(Intent(activity, PlaceListActivity::class.java))
             activity.finish()
         }
-        login = activity.findViewById(R.id.login)
-        pass = activity.findViewById(R.id.pass)
-
         validation.addValidation(login, RegexTemplate.NOT_EMPTY, activity.getString(R.string.required_field))
         validation.addValidation(pass, RegexTemplate.NOT_EMPTY, activity.getString(R.string.required_field))
     }
