@@ -2,7 +2,9 @@ package ru.rougsig.ambercard
 
 import android.app.Application
 import android.content.Context
+import android.util.AttributeSet
 import com.facebook.drawee.backends.pipeline.Fresco
+import com.veinhorn.scrollgalleryview.ScrollGalleryView
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import ru.rougsig.ambercard.common.DB.Migration
