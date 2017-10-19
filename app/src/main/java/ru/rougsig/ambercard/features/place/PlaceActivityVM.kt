@@ -109,6 +109,7 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
                     }
                 })
                 .setImageChangeListener(galleryView::changeListener)
+                .allowSwipeToDismiss(false)
                 .setOverlayView(galleryView)
                 .build()
         galleryView.gallery = gallery
