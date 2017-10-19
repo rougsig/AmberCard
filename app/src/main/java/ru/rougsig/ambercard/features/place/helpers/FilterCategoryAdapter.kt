@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ru.rougsig.ambercard.databinding.PlaceFilterItemBinding
-import ru.rougsig.ambercard.databinding.PlaceItemBinding
 import ru.rougsig.ambercard.features.place.data.CategoryModel
-import java.util.TreeSet
 
 /**
  * Created by rougs on 16-Oct-17.

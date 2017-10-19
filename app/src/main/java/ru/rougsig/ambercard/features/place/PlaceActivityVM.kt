@@ -3,18 +3,19 @@ package ru.rougsig.ambercard.features.place
 import android.content.pm.PackageManager
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
-import android.databinding.ObservableFloat
-import android.databinding.ObservableInt
 import android.location.Location
 import android.view.View
 import android.widget.Toast
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel
+import com.stfalcon.frescoimageviewer.ImageViewer
 import ru.rougsig.ambercard.App
 import ru.rougsig.ambercard.App.Companion.context
 import ru.rougsig.ambercard.R
+import ru.rougsig.ambercard.common.API.REST
+import ru.rougsig.ambercard.custom.gallery.GalleryView
+import ru.rougsig.ambercard.custom.yandexMap.MapController
 import ru.rougsig.ambercard.features.place.data.PlaceModel
 import ru.rougsig.ambercard.features.place.data.PlaceRepository
-import ru.rougsig.ambercard.custom.yandexMap.MapController
 import ru.rougsig.ambercard.utils.ResourceUtils.getDrawable
 import ru.rougsig.ambercard.utils.getMyLocationPermission
 import ru.yandex.yandexmapkit.overlay.Overlay
@@ -36,6 +37,7 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
     private val mapOverlayManager = mapController.overlayManager
     private val mapOverlay = Overlay(map.mapController)
     private val PERMISSIONS_CODE = 1
+    private lateinit var gallery: ImageViewer
 
     override fun onStart() {
         super.onStart()
@@ -96,6 +98,21 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
                 },
                 point
         )
+
+        // FIXME START
+        val galleryView = GalleryView(activity, place.photos.size)
+        gallery = ImageViewer.Builder(
+                activity,
+                ArrayList<String>().apply {
+                    place.photos.forEach { url ->
+                        this.add(REST.baseURL + url)
+                    }
+                })
+                .setImageChangeListener(galleryView::changeListener)
+                .setOverlayView(galleryView)
+                .build()
+        galleryView.gallery = gallery
+        // FIXME END
         inLoading.set(false)
     }
 
@@ -105,6 +122,7 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
     }
 
     fun onClickBack(view: View) = activity.finish()
+    fun onClickGallery(view: View) = gallery.show()
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == PERMISSIONS_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)

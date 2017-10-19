@@ -2,17 +2,12 @@ package ru.rougsig.ambercard
 
 import android.app.Application
 import android.content.Context
-import android.location.Location
-import android.location.LocationManager
-import android.util.AttributeSet
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.veinhorn.scrollgalleryview.ScrollGalleryView
+import com.facebook.imagepipeline.core.ImagePipelineConfig
+import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import ru.rougsig.ambercard.common.DB.Migration
-import ru.rougsig.ambercard.features.user.data.UserModel
-import android.os.Bundle
-import android.location.LocationListener
 import ru.yandex.yandexmapkit.utils.GeoPoint
 
 
@@ -24,7 +19,14 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        Fresco.initialize(this)
+        Fresco.initialize(
+                this,
+                ImagePipelineConfig.newBuilder(this)
+                        .setProgressiveJpegConfig(SimpleProgressiveJpegConfig())
+                        .setResizeAndRotateEnabledForNetwork(true)
+                        .setDownsampleEnabled(true)
+                        .build()
+        )
 
         Realm.init(this)
         Realm.setDefaultConfiguration(RealmConfiguration.Builder()

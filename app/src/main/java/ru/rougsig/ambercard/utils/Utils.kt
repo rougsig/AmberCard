@@ -1,26 +1,20 @@
 package ru.rougsig.ambercard.utils
 
 import android.Manifest
+import android.app.Activity
+import android.content.pm.PackageManager
 import android.graphics.Typeface
+import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import io.realm.Realm
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.rougsig.ambercard.App
 import ru.rougsig.ambercard.R
-import ru.yandex.yandexmapkit.MapView
-import ru.yandex.yandexmapkit.overlay.location.MyLocationItem
-import android.Manifest.permission
-import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
-import android.app.Activity
-import android.support.v4.app.ActivityCompat
-import android.content.pm.PackageManager
 
 
 /**

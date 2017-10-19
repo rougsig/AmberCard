@@ -61,7 +61,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'ru.yandex:yandexmapkit:2.5.4@aar'
-    compile 'com.veinhorn.scrollgalleryview:library:1.0.5'
+    compile 'com.github.stfalcon:frescoimageviewer:0.5.0'
 }
 
 kapt {

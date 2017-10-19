@@ -6,11 +6,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel
-import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.features.place.data.CategoryRepository
 import ru.rougsig.ambercard.features.place.helpers.FilterCategoryAdapter
-import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * Created by rougs on 17-Oct-17.

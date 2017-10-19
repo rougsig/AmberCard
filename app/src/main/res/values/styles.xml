@@ -41,6 +41,10 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="Text.White">
+        <item name="android:textColor">@color/bg_white</item>
+    </style>
+
     <style name="Text.Contact">
         <item name="android:textSize">18sp</item>
         <item name="android:lineSpacingExtra">0sp</item>
@@ -85,9 +89,15 @@
     </style>
 
     <style name="Btn.Transparent.Back">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">24dp</item>
         <item name="android:layout_height">24dp</item>
         <item name="android:src">@drawable/ic_back</item>
+    </style>
+
+    <style name="Btn.Transparent.Gallery">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:src">@drawable/ic_gallery</item>
     </style>
 
     <!-- Content theme -->

@@ -14,7 +14,6 @@ import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.features.place.data.PlaceModel
 import ru.rougsig.ambercard.features.place.data.PlaceRepository
 import ru.rougsig.ambercard.features.place.helpers.PlaceAdapter
-import kotlin.collections.ArrayList
 
 /**
  * Created by rougs on 16-Oct-17.

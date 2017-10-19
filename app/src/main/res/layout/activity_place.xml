@@ -59,6 +59,15 @@
                         android:layout_height="30dp"
                         android:layout_gravity="bottom"
                         android:background="@drawable/bg_content_corner_top" />
+
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:button="@drawable/fav"
+                        tools:checked="true" />
                 </android.support.design.widget.CollapsingToolbarLayout>
             </android.support.design.widget.AppBarLayout>
 
@@ -241,14 +250,21 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
             android:background="@android:color/transparent">
 
             <ImageButton
                 style="@style/Btn.Transparent.Back"
+                android:layout_gravity="start"
                 android:contentDescription="@string/back"
                 android:onClick="@{viewModel::onClickBack}" />
+
+            <ImageButton
+                style="@style/Btn.Transparent.Gallery"
+                android:layout_gravity="end"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="@string/gallery"
+                android:onClick="@{viewModel::onClickGallery}" />
         </android.support.v7.widget.Toolbar>
     </FrameLayout>
 </layout>

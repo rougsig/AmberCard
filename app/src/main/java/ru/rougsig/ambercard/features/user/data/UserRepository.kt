@@ -3,7 +3,6 @@ package ru.rougsig.ambercard.features.user.data
 import io.realm.Realm
 import mu.KotlinLogging
 import ru.rougsig.ambercard.common.API.REST
-import ru.rougsig.ambercard.common.CommonRepository
 import ru.rougsig.ambercard.utils.enqueue
 
 /**

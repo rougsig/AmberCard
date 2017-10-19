@@ -12,4 +12,6 @@
     <string name="error_pass">Не верный пароль</string>
     <string name="error_wtf">Что-то пошло не так</string>
     <string name="btn_filter">Фильтровать места</string>
+    <string name="close">close</string>
+    <string name="gallery">gallery</string>
 </resources>
