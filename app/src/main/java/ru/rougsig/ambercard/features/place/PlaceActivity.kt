@@ -27,4 +27,9 @@ class PlaceActivity : BindingActivity<ActivityPlaceBinding, PlaceActivityVM>() {
     override fun getLayoutId(): Int {
         return R.layout.activity_place
     }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.fade_out)
+    }
 }

@@ -14,6 +14,8 @@ import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.features.place.data.PlaceModel
 import ru.rougsig.ambercard.features.place.data.PlaceRepository
 import ru.rougsig.ambercard.features.place.helpers.PlaceAdapter
+import ru.rougsig.ambercard.utils.startActivityForResultWithAnimation
+import ru.rougsig.ambercard.utils.startActivityWithAnimation
 
 /**
  * Created by rougs on 16-Oct-17.
@@ -49,7 +51,7 @@ class PlaceListActivityVM(listActivity: PlaceListActivity) : ActivityViewModel<P
         val intent = Intent(activity, PlaceFilterActivity::class.java)
         if (filter != null)
             intent.putIntegerArrayListExtra(FILTER_DATA, filter)
-        activity.startActivityForResult(intent, FILTER_CODE)
+        activity.startActivityForResultWithAnimation(intent, FILTER_CODE, R.anim.slide_in_down, R.anim.fade_out)
     }
 
     private fun load(forceUpdate: Boolean = false) {
@@ -70,7 +72,7 @@ class PlaceListActivityVM(listActivity: PlaceListActivity) : ActivityViewModel<P
     private fun onClickPlace(place: PlaceModel) {
         val intent = Intent(activity, PlaceActivity::class.java)
         intent.putExtra(PlaceActivity.EXTRA_ID, place.id)
-        activity.startActivity(intent)
+        activity.startActivityWithAnimation(intent, R.anim.fade_in, R.anim.slide_out_left)
     }
 
     private fun onLoadedFailure() {

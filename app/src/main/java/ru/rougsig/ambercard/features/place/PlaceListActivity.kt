@@ -23,5 +23,4 @@ class PlaceListActivity : BindingActivity<ActivityPlaceListBinding, PlaceListAct
     override fun getLayoutId(): Int {
         return R.layout.activity_place_list
     }
-
 }

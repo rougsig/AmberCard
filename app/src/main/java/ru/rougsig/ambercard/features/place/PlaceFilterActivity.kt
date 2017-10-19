@@ -24,4 +24,8 @@ class PlaceFilterActivity : BindingActivity<ActivityPlaceFilterBinding, PlaceFil
         return R.layout.activity_place_filter
     }
 
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_up)
+    }
 }

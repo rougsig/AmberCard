@@ -6,6 +6,7 @@ import android.databinding.ObservableField
 import android.location.Location
 import android.view.View
 import android.widget.Toast
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel
 import com.stfalcon.frescoimageviewer.ImageViewer
 import ru.rougsig.ambercard.App
@@ -40,7 +41,6 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
     private lateinit var gallery: ImageViewer
 
     override fun onStart() {
-        super.onStart()
         PlaceRepository.getPlaceById(
                 activity.intent.extras.getInt(PlaceActivity.EXTRA_ID),
                 this::onLoadedSuccess,
@@ -101,6 +101,7 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
 
         // FIXME START
         val galleryView = GalleryView(activity, place.photos.size)
+
         gallery = ImageViewer.Builder(
                 activity,
                 ArrayList<String>().apply {
@@ -108,12 +109,18 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
                         this.add(REST.baseURL + url)
                     }
                 })
+                .setCustomDraweeHierarchyBuilder(
+                        GenericDraweeHierarchyBuilder.newInstance(activity.resources)
+                                .setFailureImage(R.drawable.ic_logo)
+                                .setPlaceholderImage(R.drawable.ic_logo)
+                )
                 .setImageChangeListener(galleryView::changeListener)
                 .allowSwipeToDismiss(false)
                 .setOverlayView(galleryView)
                 .build()
         galleryView.gallery = gallery
         // FIXME END
+
         inLoading.set(false)
     }
 
@@ -122,11 +129,11 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
         Toast.makeText(activity, context.getString(R.string.error_wtf), Toast.LENGTH_SHORT).show()
     }
 
-    fun onClickBack(view: View) = activity.finish()
-    fun onClickGallery(view: View) = gallery.show()
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == PERMISSIONS_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             mapOverlayManager.myLocation.refreshPermission()
     }
+
+    fun onClickBack(view: View) = activity.finish()
+    fun onClickGallery(view: View) = gallery.show()
 }
