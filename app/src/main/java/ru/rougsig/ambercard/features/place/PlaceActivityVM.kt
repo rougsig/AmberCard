@@ -9,6 +9,7 @@ import android.location.Location
 import android.view.View
 import android.widget.Toast
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel
+import ru.rougsig.ambercard.App
 import ru.rougsig.ambercard.App.Companion.context
 import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.features.place.data.PlaceModel
@@ -43,19 +44,28 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
                 this::onLoadedSuccess,
                 this::onLoadedFailure
         )
-        mapOverlayManager.myLocation.addMyLocationListener { myLocation ->
-            val result = FloatArray(3)
-            Location.distanceBetween(
-                    place.get().latitude!!,
-                    place.get().longitude!!,
-                    myLocation.geoPoint.lat,
-                    myLocation.geoPoint.lon,
-                    result
-            )
-            distance.set((result[0] / 1000).toString().substring(0, 3) + " км")
-            mapController.setPositionAnimationTo(point, 14f)
+        if (App.myLocation == null) {
+            getMyLocationPermission(activity, PERMISSIONS_CODE, { mapOverlayManager.myLocation.refreshPermission() })
+            mapOverlayManager.myLocation.addMyLocationListener { myLocation ->
+                App.myLocation = myLocation.geoPoint!!
+                calcDistance(myLocation.geoPoint)
+                mapController.setPositionAnimationTo(point, 14f)
+            }
+        } else {
+            calcDistance(App.myLocation!!)
         }
-        getMyLocationPermission(activity, PERMISSIONS_CODE, { mapOverlayManager.myLocation.refreshPermission() })
+    }
+
+    private fun calcDistance(myLocation: GeoPoint) {
+        val result = FloatArray(3)
+        Location.distanceBetween(
+                place.get().latitude!!,
+                place.get().longitude!!,
+                myLocation.lat,
+                myLocation.lon,
+                result
+        )
+        distance.set((result[0] / 1000).toString().substring(0, 3) + " км")
     }
 
     override fun onResume() {
@@ -97,11 +107,7 @@ class PlaceActivityVM(activity: PlaceActivity) : ActivityViewModel<PlaceActivity
     fun onClickBack(view: View) = activity.finish()
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when (requestCode) {
-            PERMISSIONS_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                mapOverlayManager.myLocation.refreshPermission()
-            else -> {
-            }
-        }
+        if (requestCode == PERMISSIONS_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            mapOverlayManager.myLocation.refreshPermission()
     }
 }

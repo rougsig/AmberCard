@@ -194,14 +194,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:drawableStart="@drawable/ic_phone"
+                        android:drawableStart="@drawable/ic_pointer"
                         android:paddingTop="24dp"
                         android:text="@{viewModel.distance + ` | ` + viewModel.address}"
                         android:visibility="@{Converter.toVisibility(viewModel.distance)}"
                         app:layout_constraintEnd_toStartOf="@id/guideline_right"
                         app:layout_constraintStart_toStartOf="@id/guideline_left"
                         app:layout_constraintTop_toBottomOf="@id/phone"
-                        tools:text="0.9км" />
+                        tools:text="0.9 км | Уральская улица, 18" />
 
                     <ru.rougsig.ambercard.custom.yandexMap.CustomMapView
                         android:id="@+id/map"
