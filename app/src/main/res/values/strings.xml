@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AmberCard</string>
+    <string name="empty_login">Введите Ваш логин</string>
+    <string name="empty_password">Введите Ваш пароль</string>
+    <string name="logo">logo</string>
+    <string name="logo_description">Скидки и акции для гостей\nКалининградской области</string>
+    <string name="login">Ваш логин:</string>
+    <string name="pass">Ваш пароль:</string>
+    <string name="login_submit">Войти</string>
+</resources>

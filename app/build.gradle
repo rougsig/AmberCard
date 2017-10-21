@@ -1,0 +1,77 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+    defaultConfig {
+        applicationId "ru.rougsig.ambercard"
+        minSdkVersion 17
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    // Utils
+    compile 'com.pawegio.kandroid:kandroid:0.8.5@aar'
+    compile "io.reactivex.rxjava2:rxjava:2.1.5"
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
+    // Dagger 2
+    compile 'com.google.dagger:dagger:2.12'
+    kapt 'com.google.dagger:dagger-compiler:2.12'
+
+    // Moxy
+    compile 'com.arello-mobile:moxy:1.5.3'
+    compile 'com.arello-mobile:moxy-app-compat:1.5.3'
+    kapt 'com.arello-mobile:moxy-compiler:1.5.3'
+
+    // Json
+    compile 'com.squareup.moshi:moshi:1.5.0'
+    compile 'com.squareup.moshi:moshi-kotlin:1.5.0'
+
+    // NetWork
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-moshi:2.3.0'
+    compile 'com.facebook.fresco:fresco:1.5.0'
+
+    // View
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:cardview-v7:26.1.0'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'ru.yandex:yandexmapkit:2.5.4@aar'
+    compile 'com.github.stfalcon:frescoimageviewer:0.5.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.github.techery:properratingbar:0.0.5'
+    compile 'com.android.support:design:26.1.0'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+
+    // Data
+    compile 'com.github.vicpinm:krealmextensions:1.0.6'
+}
+
+kapt {
+    generateStubs = true
+}
