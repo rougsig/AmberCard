@@ -16,7 +16,8 @@ interface SignInView : MvpView {
 
     @StateStrategyType(SkipStrategy::class)
     fun successSignIn()
-    fun failedSignIn(msg: String)
+
+    fun failedSignIn(error: Int)
 
     fun showFormError(loginError: Int?, passwordError: Int?)
     fun hideFormError()

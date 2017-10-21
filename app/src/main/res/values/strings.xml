@@ -7,4 +7,6 @@
     <string name="login">Ваш логин:</string>
     <string name="pass">Ваш пароль:</string>
     <string name="login_submit">Войти</string>
+    <string name="login_or_password_not_match">Пользователь с таким логином или паролем не найден</string>
+    <string name="network_error">Проверьте подключение к интернету</string>
 </resources>

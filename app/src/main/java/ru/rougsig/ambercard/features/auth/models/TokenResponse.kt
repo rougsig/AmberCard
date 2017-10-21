@@ -1,4 +1,4 @@
-package ru.rougsig.ambercard.common.api.responses
+package ru.rougsig.ambercard.features.auth.models
 
 /**
  * Created by rougs on 21-Oct-17.

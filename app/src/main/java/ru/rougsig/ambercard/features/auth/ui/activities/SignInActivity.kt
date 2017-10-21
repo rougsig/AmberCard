@@ -1,15 +1,17 @@
 package ru.rougsig.ambercard.features.auth.ui.activities
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.pawegio.kandroid.visible
 import ru.rougsig.ambercard.R
-import ru.rougsig.ambercard.common.di.DaggerAppComponent
 import ru.rougsig.ambercard.features.auth.presenters.SignInPresenter
 import ru.rougsig.ambercard.features.auth.views.SignInView
 import ru.rougsig.ambercard.utils.bindView
@@ -18,12 +20,15 @@ class SignInActivity : MvpAppCompatActivity(), SignInView {
     @InjectPresenter
     lateinit var signInPresenter: SignInPresenter
 
-    val login by bindView<TextInputEditText>(R.id.login)
-    val password by bindView<TextInputEditText>(R.id.password)
-    val loginLayout by bindView<TextInputLayout>(R.id.login_layout)
-    val passwordLayout by bindView<TextInputLayout>(R.id.password_layout)
-    val btnSubmit by bindView<Button>(R.id.btn_submit)
-    val progressBar by bindView<ProgressBar>(R.id.progress_bar)
+    private val root by bindView<FrameLayout>(R.id.root)
+    private val content by bindView<LinearLayout>(R.id.content)
+
+    private val login by bindView<TextInputEditText>(R.id.login)
+    private val password by bindView<TextInputEditText>(R.id.password)
+    private val loginLayout by bindView<TextInputLayout>(R.id.login_layout)
+    private val passwordLayout by bindView<TextInputLayout>(R.id.password_layout)
+    private val btnSubmit by bindView<Button>(R.id.btn_submit)
+    private val progressBar by bindView<ProgressBar>(R.id.progress_bar)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,15 +45,21 @@ class SignInActivity : MvpAppCompatActivity(), SignInView {
     }
 
     override fun startSignIn() {
+        progressBar.visible = true
+        content.visible = false
     }
 
     override fun finishSignIn() {
+        progressBar.visible = false
+        content.visible = true
     }
 
     override fun successSignIn() {
+        Snackbar.make(root, "Мы вошли!!!", Snackbar.LENGTH_SHORT).show()
     }
 
-    override fun failedSignIn(msg: String) {
+    override fun failedSignIn(error: Int) {
+        Snackbar.make(root, getString(error), Snackbar.LENGTH_SHORT).show()
     }
 
     override fun showFormError(loginError: Int?, passwordError: Int?) {
