@@ -1,5 +1,6 @@
-package ru.rougsig.ambercard.features.auth.ui.activities
+package ru.rougsig.ambercard.features.user.auth.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputEditText
@@ -10,15 +11,22 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.pawegio.kandroid.i
 import com.pawegio.kandroid.visible
 import ru.rougsig.ambercard.R
-import ru.rougsig.ambercard.features.auth.presenters.SignInPresenter
-import ru.rougsig.ambercard.features.auth.views.SignInView
+import ru.rougsig.ambercard.common.App
+import ru.rougsig.ambercard.common.repositories.UserRepository
+import ru.rougsig.ambercard.features.place.ui.activities.PlaceListActivity
+import ru.rougsig.ambercard.features.user.auth.presenters.SignInPresenter
+import ru.rougsig.ambercard.features.user.auth.views.SignInView
 import ru.rougsig.ambercard.utils.bindView
+import javax.inject.Inject
 
 class SignInActivity : MvpAppCompatActivity(), SignInView {
     @InjectPresenter
     lateinit var signInPresenter: SignInPresenter
+    @Inject
+    lateinit var userRepository: UserRepository
 
     private val root by bindView<FrameLayout>(R.id.root)
     private val content by bindView<LinearLayout>(R.id.content)
@@ -31,6 +39,10 @@ class SignInActivity : MvpAppCompatActivity(), SignInView {
     private val progressBar by bindView<ProgressBar>(R.id.progress_bar)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if(userRepository.getNullableUser() != null) {
+            startActivity(Intent(this, PlaceListActivity::class.java))
+            finish()
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
@@ -55,11 +67,12 @@ class SignInActivity : MvpAppCompatActivity(), SignInView {
     }
 
     override fun successSignIn() {
-        Snackbar.make(root, "Мы вошли!!!", Snackbar.LENGTH_SHORT).show()
+        startActivity(Intent(this, PlaceListActivity::class.java))
+        finish()
     }
 
     override fun failedSignIn(error: Int) {
-        Snackbar.make(root, getString(error), Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(root, getString(error), Snackbar.LENGTH_LONG).show()
     }
 
     override fun showFormError(loginError: Int?, passwordError: Int?) {
@@ -72,5 +85,9 @@ class SignInActivity : MvpAppCompatActivity(), SignInView {
     override fun hideFormError() {
         loginLayout.error = null
         passwordLayout.error = null
+    }
+
+    init {
+        App.appComponent.inject(this)
     }
 }

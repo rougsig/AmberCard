@@ -1,10 +1,10 @@
 package ru.rougsig.ambercard.common.api
 
-import io.reactivex.Observable
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
-import ru.rougsig.ambercard.features.auth.models.TokenResponse
+import io.reactivex.Single
+import retrofit2.http.*
+import ru.rougsig.ambercard.features.place.models.ContentResponse
+import ru.rougsig.ambercard.features.place.models.PlaceModel
+import ru.rougsig.ambercard.features.user.auth.models.TokenResponse
 
 /**
  * Created by rougs on 21-Oct-17.
@@ -15,5 +15,16 @@ interface ApiRoutes {
     fun signIn(
             @Field("username") login: String,
             @Field("password") password: String
-    ): Observable<TokenResponse>
+    ): Single<TokenResponse>
+
+    @GET("content")
+    fun getContent(
+            @Header("Authorization") token: String
+    ): Single<ContentResponse>
+
+    @GET("point/{id}")
+    fun getPlaceById(
+            @Path("id") id: Int,
+            @Header("Authorization") token: String
+    ): Single<PlaceModel>
 }

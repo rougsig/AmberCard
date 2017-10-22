@@ -9,4 +9,8 @@
     <string name="login_submit">Войти</string>
     <string name="login_or_password_not_match">Пользователь с таким логином или паролем не найден</string>
     <string name="network_error">Проверьте подключение к интернету</string>
+    <string name="title_activity_place_list">PlaceListActivity</string>
+    <string name="btn_filter">Фильтровать места</string>
+    <string name="wft">Что-то пошло не так... Попробуйте позже.</string>
+    <string name="empty_list">Мы ничего не нашли. Попробуйте обновить.</string>
 </resources>

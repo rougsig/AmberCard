@@ -1,14 +1,12 @@
-package ru.rougsig.ambercard.features.auth.presenters
+package ru.rougsig.ambercard.features.user.auth.presenters
 
-import android.util.Log.i
 import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
 import retrofit2.HttpException
 import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.common.App
-import ru.rougsig.ambercard.common.api.ApiRoutes
-import ru.rougsig.ambercard.common.presenters.BasePresenter
-import ru.rougsig.ambercard.features.auth.views.SignInView
-import ru.rougsig.ambercard.utils.applySchedulers
+import ru.rougsig.ambercard.common.repositories.UserRepository
+import ru.rougsig.ambercard.features.user.auth.views.SignInView
 import java.io.IOException
 import javax.inject.Inject
 
@@ -16,10 +14,9 @@ import javax.inject.Inject
  * Created by rougs on 21-Oct-17.
  */
 @InjectViewState
-class SignInPresenter() : BasePresenter<SignInView>() {
-
+class SignInPresenter() : MvpPresenter<SignInView>() {
     @Inject
-    lateinit var api: ApiRoutes
+    lateinit var userRepository: UserRepository
 
     fun signIn(login: String, password: String) {
         var loginError: Int? = null
@@ -37,25 +34,24 @@ class SignInPresenter() : BasePresenter<SignInView>() {
         }
 
         viewState.startSignIn()
-        val subscription = api.signIn(login, password)
-                .applySchedulers()
-                .doOnNext { token ->
-                    i("Token", token.token)
-                }
+        userRepository.signIn(login, password)
                 .subscribe(
-                        {
+                        { token ->
                             viewState.finishSignIn()
                             viewState.successSignIn()
                         },
                         { e ->
                             viewState.finishSignIn()
-                            if (e is HttpException)
-                                viewState.failedSignIn(R.string.login_or_password_not_match)
-                            if (e is IOException)
-                                viewState.failedSignIn(R.string.network_error)
+                            when (e) {
+                                is HttpException -> viewState.failedSignIn(R.string.login_or_password_not_match)
+                                is IOException -> viewState.failedSignIn(R.string.network_error)
+                                else -> {
+                                    viewState.failedSignIn(R.string.wft)
+                                    com.pawegio.kandroid.e("PlaceListLoading", e.message!!)
+                                }
+                            }
                         }
                 )
-        disposeOnDestroy(subscription)
     }
 
     init {

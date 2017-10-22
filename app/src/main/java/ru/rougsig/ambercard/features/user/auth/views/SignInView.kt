@@ -1,4 +1,4 @@
-package ru.rougsig.ambercard.features.auth.views
+package ru.rougsig.ambercard.features.user.auth.views
 
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
