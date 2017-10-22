@@ -52,8 +52,7 @@ class FilterDialog(context: Context, val applyFilter: (List<CategoryModel>) -> U
                     1
             })
             recycler.adapter = FilterAdapter(items)
-            if (!filter.isEmpty())
-                applyFilter(filter)
+            applyFilter(filter)
         }
     }
 

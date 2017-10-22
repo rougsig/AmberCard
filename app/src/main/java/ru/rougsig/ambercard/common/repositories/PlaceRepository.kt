@@ -38,6 +38,6 @@ class PlaceRepository(val api: ApiRoutes, val userRepository: UserRepository) {
     }
 
     fun getPlacesByFilter(filter: Array<Int>): List<PlaceModel> = Realm.getDefaultInstance().where(PlaceModel::class.java).`in`("category.id", filter).findAll()
+    fun getAllPlaces(): List<PlaceModel> = Realm.getDefaultInstance().where(PlaceModel::class.java).findAll()!!
     private fun getNullableCategoryById(id: Int) = Realm.getDefaultInstance().where(PlaceModel::class.java).equalTo("id", id).findFirst()
-    private fun getAllPlaces(): List<PlaceModel> = Realm.getDefaultInstance().where(PlaceModel::class.java).findAll()!!
 }

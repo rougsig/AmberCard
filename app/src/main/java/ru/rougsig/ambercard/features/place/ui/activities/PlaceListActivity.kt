@@ -89,7 +89,10 @@ class PlaceListActivity : MvpAppCompatActivity(), PlaceListView {
     }
 
     override fun applyFilter(categories: List<CategoryModel>) {
-        val filteredPlaces = placeRepository.getPlacesByFilter(categories.map { it.id }.toTypedArray())
+        val filteredPlaces: List<PlaceModel> = if (categories.isEmpty())
+            placeRepository.getAllPlaces()
+        else
+            placeRepository.getPlacesByFilter(categories.map { it.id }.toTypedArray())
         recycler.adapter = PlaceAdapter(filteredPlaces, filterDialog.filter.map { it.id }.toTypedArray())
     }
 
