@@ -25,8 +25,10 @@ class CategoryRepository(val api: ApiRoutes) {
                     .applySchedulers()
     }
 
-    fun getCategoriesByFilter(filter: List<Int>): List<CategoryModel> = Realm.getDefaultInstance().where(CategoryModel::class.java).`in`("id", filter.toTypedArray()).findAll()
+    fun getCategoriesByFilter(filter: Array<Int>): List<CategoryModel> = Realm.getDefaultInstance().where(CategoryModel::class.java).`in`("id", filter).findAll()
     // Fix for Thread
     fun getCategoriesByPlace(place: PlaceModel): List<CategoryModel> = Realm.getDefaultInstance().where(PlaceModel::class.java).equalTo("id", place.id).findFirst()!!.category
+
     private fun getNullableCategoryById(id: Int) = Realm.getDefaultInstance().where(CategoryModel::class.java).equalTo("id", id).findFirst()
+    fun getAllCategory(): List<CategoryModel> = Realm.getDefaultInstance().where(CategoryModel::class.java).findAll()
 }

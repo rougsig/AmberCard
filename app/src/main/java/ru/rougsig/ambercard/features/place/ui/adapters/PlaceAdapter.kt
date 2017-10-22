@@ -1,4 +1,4 @@
-package ru.rougsig.ambercard.features.user.auth.ui.adapters
+package ru.rougsig.ambercard.features.place.ui.adapters
 
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
@@ -12,6 +12,7 @@ import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.common.App
 import ru.rougsig.ambercard.common.api.baseURL
 import ru.rougsig.ambercard.common.repositories.CategoryRepository
+import ru.rougsig.ambercard.features.place.models.CategoryModel
 import ru.rougsig.ambercard.features.place.models.PlaceModel
 import ru.rougsig.ambercard.utils.bindView
 import javax.inject.Inject
@@ -19,7 +20,7 @@ import javax.inject.Inject
 /**
  * Created by rougs on 22-Oct-17.
  */
-class PlaceAdapter(val array: List<PlaceModel>, val filter: List<Int>? = null) : RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
+class PlaceAdapter(val array: List<PlaceModel>, val filter: Array<Int>) : RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
     @Inject
     lateinit var categoryRepository: CategoryRepository
 
@@ -35,10 +36,11 @@ class PlaceAdapter(val array: List<PlaceModel>, val filter: List<Int>? = null) :
         with(holder) {
             title.text = place.name
             description.text = place.description
-            val data = if (filter != null)
-                categoryRepository.getCategoriesByFilter(filter).first()
-            else
-                categoryRepository.getCategoriesByPlace(place).first()
+            val categories = categoryRepository.getCategoriesByPlace(place)
+            val data = if (!filter.isEmpty()) {
+                categories.dropWhile { !filter.contains(it.id) }.first()
+            } else
+                categories.first()
             image.setImageURI(baseURL + data.icon)
             category.text = data.name
             if (place.discountMax > 0) {

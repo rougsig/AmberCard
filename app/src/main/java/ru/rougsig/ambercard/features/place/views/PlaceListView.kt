@@ -3,6 +3,7 @@ package ru.rougsig.ambercard.features.place.views
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
+import ru.rougsig.ambercard.features.place.models.CategoryModel
 import ru.rougsig.ambercard.features.place.models.PlaceModel
 
 /**
@@ -19,7 +20,5 @@ interface PlaceListView : MvpView {
     fun successLoading(places: List<PlaceModel>)
     fun failedLoading(error: Int)
 
-    fun showFilter()
-    fun applyFilter(categories: List<Int>)
-    fun hideFilter()
+    fun applyFilter(categories: List<CategoryModel>)
 }
