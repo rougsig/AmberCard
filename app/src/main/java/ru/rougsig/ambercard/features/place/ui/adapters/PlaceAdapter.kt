@@ -1,6 +1,7 @@
 package ru.rougsig.ambercard.features.place.ui.adapters
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +13,8 @@ import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.common.App
 import ru.rougsig.ambercard.common.api.baseURL
 import ru.rougsig.ambercard.common.repositories.CategoryRepository
-import ru.rougsig.ambercard.features.place.models.CategoryModel
 import ru.rougsig.ambercard.features.place.models.PlaceModel
+import ru.rougsig.ambercard.features.place.ui.activities.PlaceActivity
 import ru.rougsig.ambercard.utils.bindView
 import javax.inject.Inject
 
@@ -48,13 +49,19 @@ class PlaceAdapter(val array: List<PlaceModel>, val filter: Array<Int>) : Recycl
                 discount.visible = true
             } else
                 discount.visible = false
+
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, PlaceActivity::class.java)
+                intent.putExtra(PlaceActivity.PLACE_ID_EXTRA, place.id)
+                itemView.context.startActivity(intent)
+            }
         }
     }
 
     override fun getItemCount() = array.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val title by bindView<TextView>(R.id.title)
+        val title by bindView<TextView>(R.id.name)
         val description by bindView<TextView>(R.id.description)
         val image by bindView<SimpleDraweeView>(R.id.category_img)
         val category by bindView<TextView>(R.id.category)

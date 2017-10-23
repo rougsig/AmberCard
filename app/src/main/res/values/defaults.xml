@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Place for defaults value -->
+
+    <string name="defaults_work_text">Режим работы:</string>
+    <string name="defaults_work_time">Нет информации</string>
+
+    <string name="defaults_cost_text">Стоимость посещения:</string>
+    <string name="defaults_cost_value">Нет информации</string>
+</resources>

@@ -13,4 +13,9 @@
     <string name="btn_filter">Фильтровать места</string>
     <string name="wft">Что-то пошло не так... Попробуйте позже.</string>
     <string name="empty_list">Мы ничего не нашли. Попробуйте обновить.</string>
+    <string name="preview">preview</string>
+    <string name="back">button back</string>
+    <string name="gallery">button gallery</string>
+    <string name="defaults_phone">Нет информации</string>
+    <string name="defaults_distance">Мы ищем вас. Подождите.</string>
 </resources>

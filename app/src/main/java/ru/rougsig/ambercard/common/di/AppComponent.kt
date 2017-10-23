@@ -7,6 +7,7 @@ import ru.rougsig.ambercard.common.di.modules.ContextModule
 import ru.rougsig.ambercard.common.di.modules.RetrofitModule
 import ru.rougsig.ambercard.common.json.CategoryFromIdAdapter
 import ru.rougsig.ambercard.features.place.presenters.PlaceListPresenter
+import ru.rougsig.ambercard.features.place.presenters.PlacePresenter
 import ru.rougsig.ambercard.features.place.ui.activities.PlaceListActivity
 import ru.rougsig.ambercard.features.user.auth.presenters.SignInPresenter
 import ru.rougsig.ambercard.features.user.auth.ui.activities.SignInActivity
@@ -33,4 +34,5 @@ interface AppComponent {
     fun inject(placeAdapter: PlaceAdapter)
     fun inject(filterDialog: FilterDialog)
     fun inject(placeListActivity: PlaceListActivity)
+    fun inject(placePresenter: PlacePresenter)
 }
