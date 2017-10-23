@@ -19,6 +19,4 @@ interface PlaceListView : MvpView {
 
     fun successLoading(places: List<PlaceModel>)
     fun failedLoading(error: Int)
-
-    fun applyFilter(categories: List<CategoryModel>)
 }

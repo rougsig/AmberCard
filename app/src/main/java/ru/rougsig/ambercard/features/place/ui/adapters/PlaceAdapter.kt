@@ -21,7 +21,7 @@ import javax.inject.Inject
 /**
  * Created by rougs on 22-Oct-17.
  */
-class PlaceAdapter(val array: List<PlaceModel>, val filter: Array<Int>) : RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
+class PlaceAdapter(val array: List<PlaceModel>) : RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
     @Inject
     lateinit var categoryRepository: CategoryRepository
 
@@ -37,11 +37,7 @@ class PlaceAdapter(val array: List<PlaceModel>, val filter: Array<Int>) : Recycl
         with(holder) {
             title.text = place.name
             description.text = place.description
-            val categories = categoryRepository.getCategoriesByPlace(place)
-            val data = if (!filter.isEmpty()) {
-                categories.dropWhile { !filter.contains(it.id) }.first()
-            } else
-                categories.first()
+            val data = categoryRepository.getCategoriesByPlace(place).first()
             image.setImageURI(baseURL + data.icon)
             category.text = data.name
             if (place.discountMax > 0) {

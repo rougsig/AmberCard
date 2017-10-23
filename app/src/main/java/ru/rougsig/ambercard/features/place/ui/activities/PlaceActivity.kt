@@ -2,7 +2,7 @@ package ru.rougsig.ambercard.features.place.ui.activities
 
 import android.Manifest
 import android.os.Bundle
-import android.view.View
+import android.support.design.widget.Snackbar
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.pawegio.kandroid.visible
@@ -47,12 +47,11 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
     }
 
     override fun onPermissionDenied(requestCode: Int) {
-
+        distance.visible = false
+        distance_line.visible = false
     }
 
     override fun updatePosition(position: String) {
-        distance.visible = true
-        distance_line.visible = true
         distance.text = position
     }
 
@@ -89,6 +88,6 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
     }
 
     override fun failedLoading(error: Int) {
-
+        Snackbar.make(root, getString(error), Snackbar.LENGTH_LONG).show()
     }
 }

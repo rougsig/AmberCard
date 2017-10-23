@@ -20,10 +20,11 @@ import javax.inject.Inject
 /**
  * Created by rougs on 22-Oct-17.
  */
-class FilterDialog(context: Context, val applyFilter: (List<CategoryModel>) -> Unit) : AlertDialog(context, R.style.FilterDialog) {
+class FilterDialog(context: Context) : AlertDialog(context, R.style.FilterDialog) {
     @Inject
     lateinit var categoryRepository: CategoryRepository
     lateinit var items: ArrayList<CategoryModel>
+    lateinit var onDismiss: () -> Unit
     private val btnClose by bindView<AppCompatImageButton>(R.id.btn_close)
     private val recycler by bindView<RecyclerView>(R.id.recycler)
     val filter = ArrayList<CategoryModel>()
@@ -52,7 +53,7 @@ class FilterDialog(context: Context, val applyFilter: (List<CategoryModel>) -> U
                     1
             })
             recycler.adapter = FilterAdapter(items)
-            applyFilter(filter)
+            onDismiss()
         }
     }
 
