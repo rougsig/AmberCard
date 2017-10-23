@@ -3,6 +3,7 @@ package ru.rougsig.ambercard.features.place.ui.activities
 import android.Manifest
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.widget.TextView
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.pawegio.kandroid.visible
@@ -15,13 +16,13 @@ import ru.rougsig.ambercard.features.place.models.PlaceModel
 import ru.rougsig.ambercard.features.place.presenters.PlacePresenter
 import ru.rougsig.ambercard.features.place.views.PlaceView
 import ru.rougsig.ambercard.utils.TextUtils
+import ru.rougsig.ambercard.utils.bindView
 
 class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
     @InjectPresenter
     lateinit var permissionPresenter: PermissionPresenter
     @InjectPresenter
     lateinit var placePresenter: PlacePresenter
-
     companion object {
         val PLACE_ID_EXTRA = "place_id"
         val ACCESS_COARSE_LOCATION_CODE = 0

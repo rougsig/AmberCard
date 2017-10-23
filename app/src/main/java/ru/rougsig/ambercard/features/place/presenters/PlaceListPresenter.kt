@@ -31,10 +31,10 @@ class PlaceListPresenter() : MvpPresenter<PlaceListView>() {
             viewState.startLoading()
         placeRepository.getAllPlaces(forceUpdate)
                 .subscribe(
-                        { places ->
+                        {
                             viewState.finishLoading()
                             viewState.finishRefreshing()
-                            viewState.successLoading(places)
+                            providePlaces()
                         },
                         { e ->
                             viewState.finishLoading()
@@ -49,14 +49,14 @@ class PlaceListPresenter() : MvpPresenter<PlaceListView>() {
 
     fun provideFilterDialog(filterDialog: FilterDialog) {
         this.filterDialog = filterDialog
-        this.filterDialog.onDismiss = this::onHideFilter
+        this.filterDialog.onDismiss = this::providePlaces
     }
 
     fun showFilter() {
         filterDialog.show()
     }
 
-    private fun onHideFilter() {
+    private fun providePlaces() {
         val filter = filterDialog.filter.map { it.id }
         if (!filter.isEmpty()) {
             val filteredList = placeRepository.getPlacesByFilter(filter.toTypedArray())
