@@ -25,8 +25,6 @@ import javax.inject.Inject
 class SignInActivity : MvpAppCompatActivity(), SignInView {
     @InjectPresenter
     lateinit var signInPresenter: SignInPresenter
-    @Inject
-    lateinit var userRepository: UserRepository
 
     private val root by bindView<FrameLayout>(R.id.root)
     private val content by bindView<LinearLayout>(R.id.content)
@@ -39,10 +37,6 @@ class SignInActivity : MvpAppCompatActivity(), SignInView {
     private val progressBar by bindView<ProgressBar>(R.id.progress_bar)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if(userRepository.getNullableUser() != null) {
-            startActivity(Intent(this, PlaceListActivity::class.java))
-            finish()
-        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
@@ -85,9 +79,5 @@ class SignInActivity : MvpAppCompatActivity(), SignInView {
     override fun hideFormError() {
         loginLayout.error = null
         passwordLayout.error = null
-    }
-
-    init {
-        App.appComponent.inject(this)
     }
 }

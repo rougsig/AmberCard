@@ -35,6 +35,7 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
         setContentView(R.layout.activity_place)
 
         btn_gallery.setOnClickListener { galleryDialog.show() }
+        btn_close.setOnClickListener { finish() }
         placePresenter.startLoadingPlace(intent.extras.getInt(PLACE_ID_EXTRA))
         permissionPresenter.requestPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION, ACCESS_COARSE_LOCATION_CODE)
         permissionPresenter.requestPermission(this, Manifest.permission.ACCESS_FINE_LOCATION, ACCESS_FINE_LOCATION_CODE)
@@ -93,5 +94,10 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
 
     override fun failedLoading(error: Int) {
         Snackbar.make(root, getString(error), Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left)
     }
 }

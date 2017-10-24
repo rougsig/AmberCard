@@ -16,6 +16,7 @@ import ru.rougsig.ambercard.common.repositories.CategoryRepository
 import ru.rougsig.ambercard.features.place.models.PlaceModel
 import ru.rougsig.ambercard.features.place.ui.activities.PlaceActivity
 import ru.rougsig.ambercard.utils.bindView
+import ru.rougsig.ambercard.utils.startActivityWithAnimation
 import javax.inject.Inject
 
 /**
@@ -49,7 +50,7 @@ class PlaceAdapter(val array: List<PlaceModel>) : RecyclerView.Adapter<PlaceAdap
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, PlaceActivity::class.java)
                 intent.putExtra(PlaceActivity.PLACE_ID_EXTRA, place.id)
-                itemView.context.startActivity(intent)
+                itemView.context.startActivityWithAnimation(intent, R.anim.slide_in_left, R.anim.fade_out)
             }
         }
     }

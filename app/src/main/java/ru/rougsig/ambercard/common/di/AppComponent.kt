@@ -13,6 +13,7 @@ import ru.rougsig.ambercard.features.user.auth.presenters.SignInPresenter
 import ru.rougsig.ambercard.features.user.auth.ui.activities.SignInActivity
 import ru.rougsig.ambercard.features.place.ui.adapters.PlaceAdapter
 import ru.rougsig.ambercard.features.place.ui.views.FilterDialog
+import ru.rougsig.ambercard.features.splash.ui.activities.SplashActivity
 import javax.inject.Singleton
 
 /**
@@ -35,4 +36,5 @@ interface AppComponent {
     fun inject(filterDialog: FilterDialog)
     fun inject(placeListActivity: PlaceListActivity)
     fun inject(placePresenter: PlacePresenter)
+    fun inject(splashActivity: SplashActivity)
 }

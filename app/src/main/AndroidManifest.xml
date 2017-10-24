@@ -3,7 +3,9 @@
     package="ru.rougsig.ambercard">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature android:name="android.hardware.location.ACCESS_COARSE_LOCATION" />
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -14,18 +16,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".features.user.auth.ui.activities.SignInActivity">
+        <activity android:name=".features.user.auth.ui.activities.SignInActivity" />
+        <activity
+            android:name=".features.place.ui.activities.PlaceListActivity"
+            android:label="@string/title_activity_place_list"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".features.place.ui.activities.PlaceActivity" />
+        <activity
+            android:name=".features.splash.ui.activities.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".features.place.ui.activities.PlaceListActivity"
-            android:label="@string/title_activity_place_list"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".features.place.ui.activities.PlaceActivity"></activity>
     </application>
 
 </manifest>
