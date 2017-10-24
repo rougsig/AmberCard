@@ -3,7 +3,6 @@ package ru.rougsig.ambercard.features.place.ui.activities
 import android.Manifest
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.widget.TextView
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.pawegio.kandroid.visible
@@ -14,15 +13,17 @@ import ru.rougsig.ambercard.common.presenters.PermissionPresenter
 import ru.rougsig.ambercard.common.views.PermissionView
 import ru.rougsig.ambercard.features.place.models.PlaceModel
 import ru.rougsig.ambercard.features.place.presenters.PlacePresenter
+import ru.rougsig.ambercard.features.place.ui.views.GalleryDialog
 import ru.rougsig.ambercard.features.place.views.PlaceView
 import ru.rougsig.ambercard.utils.TextUtils
-import ru.rougsig.ambercard.utils.bindView
 
 class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
     @InjectPresenter
     lateinit var permissionPresenter: PermissionPresenter
     @InjectPresenter
     lateinit var placePresenter: PlacePresenter
+    private lateinit var galleryDialog: GalleryDialog
+
     companion object {
         val PLACE_ID_EXTRA = "place_id"
         val ACCESS_COARSE_LOCATION_CODE = 0
@@ -33,6 +34,7 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_place)
 
+        btn_gallery.setOnClickListener { galleryDialog.show() }
         placePresenter.startLoadingPlace(intent.extras.getInt(PLACE_ID_EXTRA))
         permissionPresenter.requestPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION, ACCESS_COARSE_LOCATION_CODE)
         permissionPresenter.requestPermission(this, Manifest.permission.ACCESS_FINE_LOCATION, ACCESS_FINE_LOCATION_CODE)
@@ -68,6 +70,7 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
 
     override fun successLoading(place: PlaceModel) {
         placePresenter.initMap(map)
+        galleryDialog = GalleryDialog(this, place.photos.map { baseURL + it })
         img.setImageURI(baseURL + place.photos.first())
         category_img.setImageURI(baseURL + place.category.first()!!.icon)
         category.text = place.category.first()!!.name

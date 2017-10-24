@@ -163,10 +163,10 @@
                     android:layout_marginTop="16dp"
                     android:drawableStart="@drawable/ic_phone"
                     android:paddingTop="24dp"
+                    android:text="@string/defaults_phone"
                     app:layout_constraintEnd_toStartOf="@id/guideline_right"
                     app:layout_constraintStart_toStartOf="@id/guideline_left"
-                    app:layout_constraintTop_toBottomOf="@id/cost"
-                    android:text="@string/defaults_phone" />
+                    app:layout_constraintTop_toBottomOf="@id/cost" />
 
                 <View
                     android:id="@+id/distance_line"
@@ -183,10 +183,10 @@
                     android:layout_marginTop="16dp"
                     android:drawableStart="@drawable/ic_pointer"
                     android:paddingTop="24dp"
+                    android:text="@string/defaults_distance"
                     app:layout_constraintEnd_toStartOf="@id/guideline_right"
                     app:layout_constraintStart_toStartOf="@id/guideline_left"
                     app:layout_constraintTop_toBottomOf="@id/phone"
-                    android:text="@string/defaults_distance"
                     tools:text="0.9 км | Уральская улица, 18" />
 
                 <ru.rougsig.ambercard.custom.yandexMap.CustomMapView

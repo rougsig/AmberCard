@@ -1,5 +1,6 @@
 package ru.rougsig.ambercard.features.place.ui.views
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.widget.RelativeLayout
@@ -12,7 +13,6 @@ import ru.rougsig.ambercard.R
  */
 class GalleryDialog(val context: Context, val images: List<String>) {
     private val gallery: ImageViewer
-
     init {
         val overlayView = OverlayView()
         gallery = ImageViewer.Builder(context, images)
@@ -29,11 +29,12 @@ class GalleryDialog(val context: Context, val images: List<String>) {
         val overlayView = View.inflate(context, R.layout.gallery_overlay, this)!!
 
         init {
-            btn_close.setOnClickListener { hide() }
+            overlayView.btn_close.setOnClickListener { hide() }
         }
 
+        @SuppressLint("SetTextI18n")
         fun onChange(position: Int) {
-
+            overlayView.counter.text = "${position + 1} из ${images.size}"
         }
     }
 }
