@@ -1,5 +1,6 @@
 package ru.rougsig.ambercard.common.api
 
+import android.location.Geocoder
 import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.http.*
@@ -29,6 +30,7 @@ interface ApiRoutes {
             @Header("Authorization") token: String
     ): Single<PlaceModel>
 
+    // ForJobTest
     @FormUrlEncoded
     @POST("http://test.rougsig.ru/test/send.php")
     fun sendEmail(

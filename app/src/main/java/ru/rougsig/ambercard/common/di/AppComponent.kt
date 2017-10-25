@@ -4,17 +4,18 @@ import android.content.Context
 import dagger.Component
 import ru.rougsig.ambercard.common.di.modules.ApiModule
 import ru.rougsig.ambercard.common.di.modules.ContextModule
+import ru.rougsig.ambercard.common.di.modules.LocationModule
 import ru.rougsig.ambercard.common.di.modules.RetrofitModule
 import ru.rougsig.ambercard.common.jobs.PlaceSyncJob
 import ru.rougsig.ambercard.common.json.CategoryFromIdAdapter
 import ru.rougsig.ambercard.features.place.presenters.PlaceListPresenter
 import ru.rougsig.ambercard.features.place.presenters.PlacePresenter
 import ru.rougsig.ambercard.features.place.ui.activities.PlaceListActivity
-import ru.rougsig.ambercard.features.user.auth.presenters.SignInPresenter
-import ru.rougsig.ambercard.features.user.auth.ui.activities.SignInActivity
 import ru.rougsig.ambercard.features.place.ui.adapters.PlaceAdapter
 import ru.rougsig.ambercard.features.place.ui.views.FilterDialog
 import ru.rougsig.ambercard.features.splash.ui.activities.SplashActivity
+import ru.rougsig.ambercard.features.user.auth.presenters.SignInPresenter
+import ru.rougsig.ambercard.features.user.auth.ui.activities.SignInActivity
 import javax.inject.Singleton
 
 /**

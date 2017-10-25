@@ -1,6 +1,9 @@
 package ru.rougsig.ambercard.common
 
+import android.Manifest
 import android.app.Application
+import android.content.pm.PackageManager
+import android.support.v4.app.ActivityCompat
 import com.evernote.android.job.JobManager
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.core.ImagePipelineConfig
@@ -11,6 +14,7 @@ import ru.rougsig.ambercard.common.db.Migration
 import ru.rougsig.ambercard.common.di.AppComponent
 import ru.rougsig.ambercard.common.di.DaggerAppComponent
 import ru.rougsig.ambercard.common.di.modules.ContextModule
+import ru.rougsig.ambercard.common.di.modules.LocationModule
 import ru.rougsig.ambercard.common.jobs.JobCreator
 import ru.rougsig.ambercard.common.jobs.PlaceSyncJob
 
@@ -48,5 +52,13 @@ class App : Application() {
 
         JobManager.create(this).addJobCreator(JobCreator())
         PlaceSyncJob.scheduleJob()
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+            LocationModule.create(this)
     }
 }

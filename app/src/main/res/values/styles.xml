@@ -54,6 +54,12 @@
         <item name="android:textColor">@color/bg_white</item>
     </style>
 
+    <style name="Text.Distance">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="Text.Contact">
         <item name="android:textSize">18sp</item>
         <item name="android:lineSpacingExtra">0sp</item>

@@ -1,5 +1,6 @@
 package ru.rougsig.ambercard.features.place.ui.activities
 
+import android.Manifest
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
@@ -8,17 +9,18 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.pawegio.kandroid.visible
 import kotlinx.android.synthetic.main.activity_place_list.*
 import ru.rougsig.ambercard.R
-import ru.rougsig.ambercard.common.App
-import ru.rougsig.ambercard.common.repositories.PlaceRepository
-import ru.rougsig.ambercard.features.place.models.CategoryModel
+import ru.rougsig.ambercard.common.di.modules.LocationModule
+import ru.rougsig.ambercard.common.presenters.PermissionPresenter
+import ru.rougsig.ambercard.common.views.PermissionView
 import ru.rougsig.ambercard.features.place.models.PlaceModel
 import ru.rougsig.ambercard.features.place.presenters.PlaceListPresenter
 import ru.rougsig.ambercard.features.place.ui.adapters.PlaceAdapter
 import ru.rougsig.ambercard.features.place.ui.views.FilterDialog
 import ru.rougsig.ambercard.features.place.views.PlaceListView
-import javax.inject.Inject
 
-class PlaceListActivity : MvpAppCompatActivity(), PlaceListView {
+class PlaceListActivity : MvpAppCompatActivity(), PlaceListView, PermissionView {
+    @InjectPresenter
+    lateinit var permissionPresenter: PermissionPresenter
     @InjectPresenter
     lateinit var placeListPresenter: PlaceListPresenter
     private var allowRefresh = false
@@ -37,14 +39,18 @@ class PlaceListActivity : MvpAppCompatActivity(), PlaceListView {
         btn_filter.setOnClickListener {
             placeListPresenter.showFilter()
         }
+        permissionPresenter.requestPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION, PlaceActivity.ACCESS_COARSE_LOCATION_CODE)
+        permissionPresenter.requestPermission(this, Manifest.permission.ACCESS_FINE_LOCATION, PlaceActivity.ACCESS_FINE_LOCATION_CODE)
     }
 
     override fun startLoading() {
+        content.visible = false
         progress_bar.visible = true
         allowRefresh = false
     }
 
     override fun finishLoading() {
+        content.visible = true
         progress_bar.visible = false
         allowRefresh = true
     }
@@ -64,4 +70,16 @@ class PlaceListActivity : MvpAppCompatActivity(), PlaceListView {
     override fun failedLoading(error: Int) {
         Snackbar.make(root, getString(error), Snackbar.LENGTH_LONG).show()
     }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == PlaceActivity.ACCESS_COARSE_LOCATION_CODE || requestCode == PlaceActivity.ACCESS_FINE_LOCATION_CODE)
+            permissionPresenter.checkGrantedPermission(grantResults, requestCode)
+    }
+
+    override fun onPermissionGranted(requestCode: Int) {
+        if (requestCode == PlaceActivity.ACCESS_COARSE_LOCATION_CODE || requestCode == PlaceActivity.ACCESS_FINE_LOCATION_CODE)
+            LocationModule.create(this)
+    }
+
+    override fun onPermissionDenied(requestCode: Int) {}
 }

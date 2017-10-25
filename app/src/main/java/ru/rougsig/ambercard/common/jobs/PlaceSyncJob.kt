@@ -39,7 +39,6 @@ class PlaceSyncJob : Job() {
         appComponent.inject(this)
         placeRepository.getAllPlaces(true).blockingGet()
         submitLastUpdated(context)
-        api.sendEmail("UpdatedAt -> ${getLastUpdated()}").execute()
         return Result.SUCCESS
     }
 }

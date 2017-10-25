@@ -71,6 +71,18 @@
             app:layout_constraintTop_toBottomOf="@id/name"
             tools:text="Музей показывает обстановку семейного быта семьи семейного быта семьи семейного быта семьи" />
 
+        <TextView
+            android:id="@+id/distance"
+            style="@style/Text.Distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:drawablePadding="12dp"
+            android:drawableStart="@drawable/ic_pointer"
+            app:layout_constraintStart_toStartOf="@id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            tools:text="600м" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -78,7 +90,7 @@
             android:background="@color/border"
             app:layout_constraintEnd_toEndOf="@id/parent"
             app:layout_constraintStart_toStartOf="@id/guideline_left"
-            app:layout_constraintTop_toBottomOf="@id/description" />
+            app:layout_constraintTop_toBottomOf="@id/distance" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline_left"

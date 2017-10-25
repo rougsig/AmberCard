@@ -32,8 +32,6 @@ class PlaceListPresenter() : MvpPresenter<PlaceListView>() {
         placeRepository.getAllPlaces(forceUpdate)
                 .subscribe(
                         {
-                            viewState.finishLoading()
-                            viewState.finishRefreshing()
                             providePlaces()
                         },
                         { e ->
@@ -69,13 +67,15 @@ class PlaceListPresenter() : MvpPresenter<PlaceListView>() {
                 }
             }
             viewState.successLoading(filteredList)
+            viewState.finishLoading()
+            viewState.finishRefreshing()
         } else
             placeRepository.getAllPlaces()
                     .subscribe(
                             {
+                                viewState.successLoading(it)
                                 viewState.finishLoading()
                                 viewState.finishRefreshing()
-                                viewState.successLoading(it)
                             },
                             { e ->
                                 viewState.finishLoading()

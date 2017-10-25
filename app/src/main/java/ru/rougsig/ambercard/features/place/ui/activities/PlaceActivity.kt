@@ -1,14 +1,19 @@
 package ru.rougsig.ambercard.features.place.ui.activities
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.location.Geocoder
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.pawegio.kandroid.visible
 import kotlinx.android.synthetic.main.activity_place.*
 import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.common.api.baseURL
+import ru.rougsig.ambercard.common.custom.yandexMap.MapController
+import ru.rougsig.ambercard.common.di.modules.LocationModule
 import ru.rougsig.ambercard.common.presenters.PermissionPresenter
 import ru.rougsig.ambercard.common.views.PermissionView
 import ru.rougsig.ambercard.features.place.models.PlaceModel
@@ -16,6 +21,11 @@ import ru.rougsig.ambercard.features.place.presenters.PlacePresenter
 import ru.rougsig.ambercard.features.place.ui.views.GalleryDialog
 import ru.rougsig.ambercard.features.place.views.PlaceView
 import ru.rougsig.ambercard.utils.TextUtils
+import ru.rougsig.ambercard.utils.getDistance
+import ru.yandex.yandexmapkit.overlay.Overlay
+import ru.yandex.yandexmapkit.overlay.OverlayItem
+import ru.yandex.yandexmapkit.utils.GeoPoint
+import java.util.*
 
 class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
     @InjectPresenter
@@ -26,8 +36,8 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
 
     companion object {
         val PLACE_ID_EXTRA = "place_id"
-        val ACCESS_COARSE_LOCATION_CODE = 0
-        val ACCESS_FINE_LOCATION_CODE = 1
+        val ACCESS_COARSE_LOCATION_CODE = 1111
+        val ACCESS_FINE_LOCATION_CODE = 2222
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,16 +57,14 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
     }
 
     override fun onPermissionGranted(requestCode: Int) {
-        placePresenter.allowMapTracking(map)
+        if (requestCode == PlaceActivity.ACCESS_COARSE_LOCATION_CODE || requestCode == PlaceActivity.ACCESS_FINE_LOCATION_CODE) {
+            LocationModule.create(this)
+        }
     }
 
     override fun onPermissionDenied(requestCode: Int) {
         distance.visible = false
         distance_line.visible = false
-    }
-
-    override fun updatePosition(position: String) {
-        distance.text = position
     }
 
     override fun startLoading() {
@@ -69,8 +77,8 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
         progress_bar.visible = false
     }
 
+    @SuppressLint("SetTextI18n")
     override fun successLoading(place: PlaceModel) {
-        placePresenter.initMap(map)
         galleryDialog = GalleryDialog(this, place.photos.map { baseURL + it })
         img.setImageURI(baseURL + place.photos.first())
         category_img.setImageURI(baseURL + place.category.first()!!.icon)
@@ -90,6 +98,27 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
         )
         if (place.phone != null && place.phone != "")
             phone.text = place.phone
+
+        val mc = MapController(map)
+        val point = GeoPoint(
+                place.latitude,
+                place.longitude
+        )
+        val mapOverlay = Overlay(map.mapController)
+        mapOverlay.addOverlayItem(
+                OverlayItem(
+                        point,
+                        ContextCompat.getDrawable(map.context, R.drawable.ic_pin))
+        )
+        mc.overlayManager.addOverlay(mapOverlay)
+        mc.setPositionAnimationTo(point, 14f)
+        val address = Geocoder(this, Locale("ru", "RU")).getFromLocation(
+                place.latitude,
+                place.longitude,
+                1
+        ).first()
+        val distanceText = getDistance(place.latitude, place.longitude)
+        distance.text = (if (!distanceText.isEmpty()) distanceText + " | " else "") + address.thoroughfare + ", " + address.subThoroughfare
     }
 
     override fun failedLoading(error: Int) {

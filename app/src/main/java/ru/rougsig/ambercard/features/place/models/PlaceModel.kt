@@ -8,7 +8,6 @@ import io.realm.annotations.Required
 import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.common.json.CategoryFromId
 import ru.rougsig.ambercard.utils.defaultIfEmptyOrNull
-import java.util.*
 
 /**
  * Created by rougs on 22-Oct-17.
@@ -30,10 +29,8 @@ open class PlaceModel : RealmObject() {
     @Json(name = "description_2")
     var time: String = ""
         get() = field.defaultIfEmptyOrNull(R.string.defaults_work_time)
-    @Required
-    var latitude: Double? = null
-    @Required
-    var longitude: Double? = null
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
     var rate: Int = 0
     @Json(name = "cost_text")
     var costText: String = ""

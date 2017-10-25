@@ -12,10 +12,12 @@ import com.pawegio.kandroid.visible
 import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.common.App
 import ru.rougsig.ambercard.common.api.baseURL
+import ru.rougsig.ambercard.common.di.modules.LocationModule
 import ru.rougsig.ambercard.common.repositories.CategoryRepository
 import ru.rougsig.ambercard.features.place.models.PlaceModel
 import ru.rougsig.ambercard.features.place.ui.activities.PlaceActivity
 import ru.rougsig.ambercard.utils.bindView
+import ru.rougsig.ambercard.utils.getDistance
 import ru.rougsig.ambercard.utils.startActivityWithAnimation
 import javax.inject.Inject
 
@@ -46,7 +48,10 @@ class PlaceAdapter(val array: List<PlaceModel>) : RecyclerView.Adapter<PlaceAdap
                 discount.visible = true
             } else
                 discount.visible = false
-
+            if (LocationModule.location != null) {
+                distance.text = getDistance(place.latitude, place.longitude)
+            } else
+                distance.visible = false
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, PlaceActivity::class.java)
                 intent.putExtra(PlaceActivity.PLACE_ID_EXTRA, place.id)
@@ -63,6 +68,7 @@ class PlaceAdapter(val array: List<PlaceModel>) : RecyclerView.Adapter<PlaceAdap
         val image by bindView<SimpleDraweeView>(R.id.category_img)
         val category by bindView<TextView>(R.id.category)
         val discount by bindView<TextView>(R.id.discount)
+        val distance by bindView<TextView>(R.id.distance)
     }
 
     init {
