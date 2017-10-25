@@ -37,8 +37,8 @@ class SignInPresenter() : MvpPresenter<SignInView>() {
         userRepository.signIn(login, password)
                 .subscribe(
                         { token ->
-                            viewState.finishSignIn()
                             viewState.successSignIn()
+                            viewState.finishSignIn()
                         },
                         { e ->
                             viewState.finishSignIn()
@@ -47,7 +47,6 @@ class SignInPresenter() : MvpPresenter<SignInView>() {
                                 is IOException -> viewState.failedSignIn(R.string.network_error)
                                 else -> {
                                     viewState.failedSignIn(R.string.wft)
-                                    com.pawegio.kandroid.e("PlaceListLoading", e.message!!)
                                 }
                             }
                         }

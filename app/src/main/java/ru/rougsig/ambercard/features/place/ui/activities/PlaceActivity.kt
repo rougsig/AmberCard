@@ -62,10 +62,7 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
         }
     }
 
-    override fun onPermissionDenied(requestCode: Int) {
-        distance.visible = false
-        distance_line.visible = false
-    }
+    override fun onPermissionDenied(requestCode: Int) {}
 
     override fun startLoading() {
         content.visible = false
@@ -118,7 +115,19 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
                 1
         ).first()
         val distanceText = getDistance(place.latitude, place.longitude)
-        distance.text = (if (!distanceText.isEmpty()) distanceText + " | " else "") + address.thoroughfare + ", " + address.subThoroughfare
+        var addressText = ""
+        if (!distanceText.isEmpty())
+            addressText = distanceText
+        if (address.subThoroughfare != "null" && address.thoroughfare != "Unnamed Road") {
+            if (addressText != "")
+                addressText += " | "
+            addressText += "${address.thoroughfare}, ${address.subThoroughfare}"
+        }
+        if (addressText == "") {
+            distance.visible = false
+            distance_line.visible = false
+        }
+        distance.text = addressText
     }
 
     override fun failedLoading(error: Int) {
