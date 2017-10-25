@@ -27,7 +27,6 @@ class PlacePresenter : MvpPresenter<PlaceView>() {
                 }, { e ->
                     viewState.finishLoading()
                     when (e) {
-                        is HttpException -> viewState.failedLoading(R.string.login_or_password_not_match)
                         is IOException -> viewState.failedLoading(R.string.network_error)
                         else -> {
                             viewState.failedLoading(R.string.wft)
