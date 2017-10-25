@@ -5,40 +5,105 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refresh"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="45dp">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@drawable/bg_border_bottom">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_gravity="start"
-            android:contentDescription="@string/logo"
-            app:srcCompat="@drawable/ic_logo" />
-
-        <Button
-            android:id="@+id/btn_filter"
-            style="@style/Btn.Transparent.Red"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
-            android:text="@string/btn_filter" />
-    </android.support.v7.widget.Toolbar>
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:elevation="0dp">
+
+            <com.wajahatkarim3.easyflipview.EasyFlipView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                app:flipDuration="400"
+                app:flipEnabled="true"
+                app:flipOnTouch="true"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@drawable/bg_radius"
+                    android:orientation="vertical"
+                    android:paddingBottom="32dp"
+                    android:paddingTop="32dp">
+
+                    <TextView
+                        style="@style/Text.Scan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="24dp"
+                        android:text="156 156 184 127"
+                        android:textAlignment="center" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="74dp"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/card_scan" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_height="200dp"
+                    android:layout_width="match_parent"
+                    android:contentDescription="@string/discount_card"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/discount_card" />
+
+            </com.wajahatkarim3.easyflipview.EasyFlipView>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/bg_content_corner_top"
+                app:layout_scrollFlags="scroll|enterAlways" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_border_bottom"
+                android:paddingBottom="4dp">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="start"
+                    android:contentDescription="@string/logo"
+                    app:srcCompat="@drawable/ic_logo" />
+
+                <Button
+                    android:id="@+id/btn_filter"
+                    style="@style/Btn.Transparent.Red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/btn_filter" />
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
     <ProgressBar
         android:id="@+id/progress_bar"

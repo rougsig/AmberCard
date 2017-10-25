@@ -7,7 +7,7 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@color/bg_white</item>
+        <item name="android:windowBackground">@drawable/background</item>
     </style>
 
     <!-- Text theme. -->
@@ -39,6 +39,11 @@
         <item name="android:textSize">17sp</item>
         <item name="android:textColor">@color/gray</item>
         <item name="android:lineSpacingExtra">1sp</item>
+    </style>
+
+    <style name="Text.Scan">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Text.Black">

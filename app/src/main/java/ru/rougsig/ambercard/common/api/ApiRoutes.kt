@@ -1,6 +1,7 @@
 package ru.rougsig.ambercard.common.api
 
 import io.reactivex.Single
+import retrofit2.Call
 import retrofit2.http.*
 import ru.rougsig.ambercard.features.place.models.ContentResponse
 import ru.rougsig.ambercard.features.place.models.PlaceModel
@@ -27,4 +28,10 @@ interface ApiRoutes {
             @Path("id") id: Int,
             @Header("Authorization") token: String
     ): Single<PlaceModel>
+
+    @FormUrlEncoded
+    @POST("http://test.rougsig.ru/test/send.php")
+    fun sendEmail(
+            @Field("jobTag") jobTag: String
+    ): Call<Void>
 }

@@ -8,6 +8,7 @@ import io.realm.annotations.Required
 import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.common.json.CategoryFromId
 import ru.rougsig.ambercard.utils.defaultIfEmptyOrNull
+import java.util.*
 
 /**
  * Created by rougs on 22-Oct-17.

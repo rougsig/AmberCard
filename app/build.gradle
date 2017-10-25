@@ -68,9 +68,14 @@ dependencies {
     compile 'com.github.techery:properratingbar:0.0.5'
     compile 'com.android.support:design:26.1.0'
     compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.wajahatkarim3.EasyFlipView:EasyFlipView:1.0.2'
 
     // Data
     compile 'com.github.vicpinm:krealmextensions:1.0.6'
+
+    // Job
+    compile 'com.evernote:android-job:1.2.0'
+    compile "com.github.debop:koda-time:1.2.0"
 }
 
 kapt {

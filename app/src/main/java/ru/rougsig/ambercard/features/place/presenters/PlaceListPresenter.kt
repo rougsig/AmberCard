@@ -70,7 +70,22 @@ class PlaceListPresenter() : MvpPresenter<PlaceListView>() {
             }
             viewState.successLoading(filteredList)
         } else
-            viewState.successLoading(placeRepository.getAllPlaces())
+            placeRepository.getAllPlaces()
+                    .subscribe(
+                            {
+                                viewState.finishLoading()
+                                viewState.finishRefreshing()
+                                viewState.successLoading(it)
+                            },
+                            { e ->
+                                viewState.finishLoading()
+                                viewState.finishRefreshing()
+                                when (e) {
+                                    is IOException -> viewState.failedLoading(R.string.network_error)
+                                    else -> viewState.failedLoading(R.string.wft)
+                                }
+                            }
+                    )
     }
 
     init {

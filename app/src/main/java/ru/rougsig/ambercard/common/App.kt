@@ -1,6 +1,7 @@
 package ru.rougsig.ambercard.common
 
 import android.app.Application
+import com.evernote.android.job.JobManager
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.core.ImagePipelineConfig
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig
@@ -10,6 +11,8 @@ import ru.rougsig.ambercard.common.db.Migration
 import ru.rougsig.ambercard.common.di.AppComponent
 import ru.rougsig.ambercard.common.di.DaggerAppComponent
 import ru.rougsig.ambercard.common.di.modules.ContextModule
+import ru.rougsig.ambercard.common.jobs.JobCreator
+import ru.rougsig.ambercard.common.jobs.PlaceSyncJob
 
 
 /**
@@ -42,5 +45,8 @@ class App : Application() {
                 .schemaVersion(1)
                 .migration(Migration())
                 .build())
+
+        JobManager.create(this).addJobCreator(JobCreator())
+        PlaceSyncJob.scheduleJob()
     }
 }

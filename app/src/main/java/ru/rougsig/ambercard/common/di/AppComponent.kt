@@ -5,6 +5,7 @@ import dagger.Component
 import ru.rougsig.ambercard.common.di.modules.ApiModule
 import ru.rougsig.ambercard.common.di.modules.ContextModule
 import ru.rougsig.ambercard.common.di.modules.RetrofitModule
+import ru.rougsig.ambercard.common.jobs.PlaceSyncJob
 import ru.rougsig.ambercard.common.json.CategoryFromIdAdapter
 import ru.rougsig.ambercard.features.place.presenters.PlaceListPresenter
 import ru.rougsig.ambercard.features.place.presenters.PlacePresenter
@@ -37,4 +38,5 @@ interface AppComponent {
     fun inject(placeListActivity: PlaceListActivity)
     fun inject(placePresenter: PlacePresenter)
     fun inject(splashActivity: SplashActivity)
+    fun inject(placeSyncJob: PlaceSyncJob)
 }

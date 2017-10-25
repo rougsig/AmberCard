@@ -180,7 +180,7 @@
                     style="@style/Text.Contact"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     android:drawableStart="@drawable/ic_pointer"
                     android:paddingTop="24dp"
                     android:text="@string/defaults_distance"
