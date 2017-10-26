@@ -25,6 +25,7 @@ class SignInPresenter() : MvpPresenter<SignInView>() {
 
         viewState.hideFormError()
 
+        // Однострочные читабельней
         if (login.isEmpty())
             loginError = R.string.empty_login
         if (password.isEmpty())
@@ -37,6 +38,7 @@ class SignInPresenter() : MvpPresenter<SignInView>() {
         viewState.startSignIn()
         userRepository.signIn(login, password)
                 .subscribe(
+                        // Убери вообще -> ты не используешь, а если надо, то лучше it
                         { token ->
                             viewState.successSignIn()
                             viewState.finishSignIn()
