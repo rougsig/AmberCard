@@ -29,20 +29,16 @@ class PlaceListPresenter() : MvpPresenter<PlaceListView>() {
             viewState.startRefreshing()
         else
             viewState.startLoading()
-        placeRepository.getAllPlaces(forceUpdate)
-                .subscribe(
-                        {
-                            providePlaces()
-                        },
-                        { e ->
-                            viewState.finishLoading()
-                            viewState.finishRefreshing()
-                            when (e) {
-                                is IOException -> viewState.failedLoading(R.string.network_error)
-                                else -> viewState.failedLoading(R.string.wft)
-                            }
-                        }
-                )
+        placeRepository.getAllPlaces(forceUpdate).subscribe(
+                { providePlaces() },
+                { e ->
+                    providePlaces()
+                    when (e) {
+                        is IOException -> viewState.failedLoading(R.string.network_error)
+                        else -> viewState.failedLoading(R.string.wft)
+                    }
+                }
+        )
     }
 
     fun provideFilterDialog(filterDialog: FilterDialog) {
@@ -67,25 +63,11 @@ class PlaceListPresenter() : MvpPresenter<PlaceListView>() {
                 }
             }
             viewState.successLoading(filteredList)
-            viewState.finishLoading()
-            viewState.finishRefreshing()
         } else
-            placeRepository.getAllPlaces()
-                    .subscribe(
-                            {
-                                viewState.successLoading(it)
-                                viewState.finishLoading()
-                                viewState.finishRefreshing()
-                            },
-                            { e ->
-                                viewState.finishLoading()
-                                viewState.finishRefreshing()
-                                when (e) {
-                                    is IOException -> viewState.failedLoading(R.string.network_error)
-                                    else -> viewState.failedLoading(R.string.wft)
-                                }
-                            }
-                    )
+            viewState.successLoading(placeRepository.getAllPlacesFromDB())
+
+        viewState.finishLoading()
+        viewState.finishRefreshing()
     }
 
     init {

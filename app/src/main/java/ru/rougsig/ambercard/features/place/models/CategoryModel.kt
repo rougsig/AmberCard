@@ -3,7 +3,6 @@ package ru.rougsig.ambercard.features.place.models
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.Required
-import java.util.*
 
 /**
  * Created by rougs on 22-Oct-17.

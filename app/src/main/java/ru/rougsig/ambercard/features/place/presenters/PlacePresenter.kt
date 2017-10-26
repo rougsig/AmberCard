@@ -2,7 +2,6 @@ package ru.rougsig.ambercard.features.place.presenters
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import retrofit2.HttpException
 import ru.rougsig.ambercard.R
 import ru.rougsig.ambercard.common.App
 import ru.rougsig.ambercard.common.repositories.PlaceRepository

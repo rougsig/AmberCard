@@ -1,12 +1,11 @@
 package ru.rougsig.ambercard.common.repositories
 
-import com.github.debop.kodatimes.hours
 import io.reactivex.Single
 import io.realm.Realm
-import org.joda.time.DateTime
 import ru.rougsig.ambercard.common.api.ApiRoutes
 import ru.rougsig.ambercard.features.place.models.PlaceModel
 import ru.rougsig.ambercard.utils.applySchedulers
+import ru.rougsig.ambercard.utils.checkDateTime
 import ru.rougsig.ambercard.utils.getLastUpdated
 import ru.rougsig.ambercard.utils.submitLastUpdated
 
@@ -27,7 +26,7 @@ class PlaceRepository(val api: ApiRoutes, val userRepository: UserRepository) {
     }
 
     fun getAllPlaces(forceUpdate: Boolean = false): Single<List<PlaceModel>> {
-        return if (forceUpdate || getLastUpdated() < DateTime.now() - 4.hours())
+        return if (forceUpdate || checkDateTime(getLastUpdated()))
             api.getContent(userRepository.getToken())
                     .doOnSuccess { data ->
                         submitLastUpdated()
@@ -39,10 +38,10 @@ class PlaceRepository(val api: ApiRoutes, val userRepository: UserRepository) {
                     .map { it.places }
                     .applySchedulers()
         else
-            Single.fromCallable { getAllPlaces() }
+            Single.fromCallable { getAllPlacesFromDB() }
     }
 
     fun getPlacesByFilter(filter: Array<Int>): List<PlaceModel> = Realm.getDefaultInstance().where(PlaceModel::class.java).`in`("category.id", filter).findAll()
-    private fun getAllPlaces(): List<PlaceModel> = Realm.getDefaultInstance().where(PlaceModel::class.java).findAll()!!
+    fun getAllPlacesFromDB(): List<PlaceModel> = Realm.getDefaultInstance().where(PlaceModel::class.java).findAll()!!
     private fun getNullableCategoryById(id: Int) = Realm.getDefaultInstance().where(PlaceModel::class.java).equalTo("id", id).findFirst()
 }

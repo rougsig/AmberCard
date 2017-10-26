@@ -25,6 +25,7 @@ import ru.rougsig.ambercard.utils.getDistance
 import ru.yandex.yandexmapkit.overlay.Overlay
 import ru.yandex.yandexmapkit.overlay.OverlayItem
 import ru.yandex.yandexmapkit.utils.GeoPoint
+import java.io.IOException
 import java.util.*
 
 class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
@@ -109,16 +110,20 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
         )
         mc.overlayManager.addOverlay(mapOverlay)
         mc.setPositionAnimationTo(point, 14f)
-        val address = Geocoder(this, Locale("ru", "RU")).getFromLocation(
-                place.latitude,
-                place.longitude,
-                1
-        ).first()
+        val address = try {
+            Geocoder(this, Locale("ru", "RU")).getFromLocation(
+                    place.latitude,
+                    place.longitude,
+                    1
+            ).first()
+        } catch (e: IOException) {
+            null
+        }
         val distanceText = getDistance(place.latitude, place.longitude)
         var addressText = ""
         if (!distanceText.isEmpty())
             addressText = distanceText
-        if (address.subThoroughfare != "null" && address.thoroughfare != "Unnamed Road") {
+        if (address != null && address.subThoroughfare != "null" && address.thoroughfare != "Unnamed Road") {
             if (addressText != "")
                 addressText += " | "
             addressText += "${address.thoroughfare}, ${address.subThoroughfare}"

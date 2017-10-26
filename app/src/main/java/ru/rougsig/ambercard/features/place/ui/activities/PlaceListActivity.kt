@@ -39,6 +39,9 @@ class PlaceListActivity : MvpAppCompatActivity(), PlaceListView, PermissionView 
         btn_filter.setOnClickListener {
             placeListPresenter.showFilter()
         }
+        btn_update.setOnClickListener {
+            placeListPresenter.load(true)
+        }
         permissionPresenter.requestPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION, PlaceActivity.ACCESS_COARSE_LOCATION_CODE)
         permissionPresenter.requestPermission(this, Manifest.permission.ACCESS_FINE_LOCATION, PlaceActivity.ACCESS_FINE_LOCATION_CODE)
     }
@@ -64,7 +67,12 @@ class PlaceListActivity : MvpAppCompatActivity(), PlaceListView, PermissionView 
     }
 
     override fun successLoading(places: List<PlaceModel>) {
-        recycler.adapter = PlaceAdapter(places)
+        if(!places.isEmpty()) {
+            recycler.adapter = PlaceAdapter(places)
+            no_info.visible = false
+            btn_filter.visible = true
+        } else
+            btn_filter.visible = false
     }
 
     override fun failedLoading(error: Int) {

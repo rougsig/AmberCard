@@ -1,7 +1,8 @@
 package ru.rougsig.ambercard.common.views
 
 import com.arellomobile.mvp.MvpView
-import com.arellomobile.mvp.viewstate.strategy.*
+import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
+import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 /**
  * Created by rougs on 23-Oct-17.

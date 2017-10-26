@@ -11,16 +11,12 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.pawegio.kandroid.i
 import com.pawegio.kandroid.visible
 import ru.rougsig.ambercard.R
-import ru.rougsig.ambercard.common.App
-import ru.rougsig.ambercard.common.repositories.UserRepository
 import ru.rougsig.ambercard.features.place.ui.activities.PlaceListActivity
 import ru.rougsig.ambercard.features.user.auth.presenters.SignInPresenter
 import ru.rougsig.ambercard.features.user.auth.views.SignInView
 import ru.rougsig.ambercard.utils.bindView
-import javax.inject.Inject
 
 class SignInActivity : MvpAppCompatActivity(), SignInView {
     @InjectPresenter

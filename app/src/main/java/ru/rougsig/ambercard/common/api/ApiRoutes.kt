@@ -1,6 +1,5 @@
 package ru.rougsig.ambercard.common.api
 
-import android.location.Geocoder
 import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.http.*

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.widget.RelativeLayout
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder
 import com.stfalcon.frescoimageviewer.ImageViewer
 import kotlinx.android.synthetic.main.gallery_overlay.view.*
 import ru.rougsig.ambercard.R
@@ -13,12 +14,19 @@ import ru.rougsig.ambercard.R
  */
 class GalleryDialog(val context: Context, val images: List<String>) {
     private val gallery: ImageViewer
+
     init {
         val overlayView = OverlayView()
         gallery = ImageViewer.Builder(context, images)
                 .setOverlayView(overlayView.overlayView)
                 .setImageChangeListener(overlayView::onChange)
                 .allowSwipeToDismiss(false)
+                .setCustomDraweeHierarchyBuilder(
+                        GenericDraweeHierarchyBuilder.newInstance(context.resources)
+                                .setFailureImage(R.drawable.ic_logo_white)
+                                .setProgressBarImage(R.drawable.ic_logo_white)
+                                .setPlaceholderImage(R.drawable.ic_logo_white)
+                )
                 .build()
     }
 

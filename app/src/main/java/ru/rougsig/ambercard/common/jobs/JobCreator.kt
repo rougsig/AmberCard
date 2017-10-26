@@ -1,9 +1,7 @@
 package ru.rougsig.ambercard.common.jobs
 
-import android.content.Context
 import com.evernote.android.job.Job
 import com.evernote.android.job.JobCreator
-import com.evernote.android.job.JobManager
 
 
 /**

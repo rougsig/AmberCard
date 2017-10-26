@@ -70,6 +70,7 @@
                 android:layout_height="wrap_content">
 
                 <com.facebook.drawee.view.SimpleDraweeView
+                    app:placeholderImage="@drawable/ic_logo"
                     android:id="@+id/category_img"
                     android:layout_width="24dp"
                     android:layout_height="24dp"

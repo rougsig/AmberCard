@@ -7,7 +7,6 @@ import ru.rougsig.ambercard.common.api.ApiRoutes
 import ru.rougsig.ambercard.common.di.DaggerAppComponent
 import ru.rougsig.ambercard.common.di.modules.ContextModule
 import ru.rougsig.ambercard.common.repositories.PlaceRepository
-import ru.rougsig.ambercard.utils.getLastUpdated
 import ru.rougsig.ambercard.utils.submitLastUpdated
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

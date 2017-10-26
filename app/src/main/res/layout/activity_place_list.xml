@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
         android:id="@+id/content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v4.widget.SwipeRefreshLayout
@@ -16,11 +16,43 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/no_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="64dp"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <TextView
+                        style="@style/Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/no_info_place_list"
+                        android:textAlignment="center" />
+
+                    <Button
+                        android:id="@+id/btn_update"
+                        style="@style/Btn.Transparent.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/refresh" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </FrameLayout>
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <android.support.design.widget.AppBarLayout
@@ -65,8 +97,8 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_height="200dp"
                     android:layout_width="match_parent"
+                    android:layout_height="200dp"
                     android:contentDescription="@string/discount_card"
                     android:scaleType="fitXY"
                     android:src="@drawable/discount_card" />
@@ -101,7 +133,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginEnd="16dp"
-                    android:text="@string/btn_filter" />
+                    android:text="@string/btn_filter"
+                    android:visibility="gone" />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
     </android.support.design.widget.CoordinatorLayout>

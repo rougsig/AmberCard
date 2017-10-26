@@ -50,3 +50,8 @@ fun getDistance(latitude: Double, longitude: Double): String {
                         }
                 ))
 }
+
+fun checkDateTime(dateTime: DateTime): Boolean {
+    val now = DateTime.now()
+    return now.year > dateTime.year || now.monthOfYear > dateTime.monthOfYear || now.dayOfMonth > dateTime.dayOfMonth || (now.hourOfDay - 4) > dateTime.hourOfDay
+}

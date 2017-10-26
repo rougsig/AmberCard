@@ -16,12 +16,13 @@
         android:paddingTop="20dp">
 
         <com.facebook.drawee.view.SimpleDraweeView
+            app:placeholderImage="@drawable/ic_logo"
             android:id="@+id/category_img"
             android:layout_width="24dp"
             android:layout_height="24dp"
             app:layout_constraintStart_toStartOf="@id/guideline_left"
             app:layout_constraintTop_toTopOf="@+id/parent"
-            tools:background="@color/gray" />
+            tools:background="@color/gray"  />
 
         <TextView
             android:id="@+id/category_text"

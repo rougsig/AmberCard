@@ -21,4 +21,6 @@
     <string name="close">close</string>
     <string name="preference_file_key">ru.rougsig.ambercard.pref</string>
     <string name="discount_card">disctount card</string>
+    <string name="no_info_place_list">Мы не нашли, хороших мест. Попробуйте позже.</string>
+    <string name="refresh">Обновить</string>
 </resources>
