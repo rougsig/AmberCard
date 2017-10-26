@@ -26,6 +26,7 @@ class SignInPresenter() : MvpPresenter<SignInView>() {
         viewState.hideFormError()
 
         // Однострочные читабельней
+        // Если заполню пробелами - прокатит. Используй isBlank()
         if (login.isEmpty())
             loginError = R.string.empty_login
         if (password.isEmpty())
