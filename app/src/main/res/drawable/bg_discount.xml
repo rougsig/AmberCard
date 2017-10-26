@@ -9,6 +9,6 @@
             android:pathData="M0 0L64 0 64 28 0 28 7.6 14Z" />
         <path
             android:pathData="M-5 -5l74 0 0 38 -74 0z"
-            android:fillColor="#f33d41" />
+            android:fillColor="@color/action" />
     </group>
 </vector>
