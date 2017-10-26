@@ -40,11 +40,17 @@ class SignInActivity : MvpAppCompatActivity(), SignInView {
     }
 
     private fun attemptLogin() {
+        // Попридераюсь - toString() лучше вынести в презентер
         signInPresenter.signIn(
                 login.text.toString(),
                 password.text.toString()
         )
     }
+
+    // Не должно быть у вью методов с таими неймингами (startSignIn, successSignIn итд).
+    // Вью не знает о логике и тем более ещё не держит. ОНа умеет только отрисовывать
+    // лучше showLoading, showError, showContent
+    // а ещё лучше вынести это в базовый уровень т.к. почти все вью будут с таким поведением
 
     override fun startSignIn() {
         progressBar.visible = true
@@ -62,9 +68,11 @@ class SignInActivity : MvpAppCompatActivity(), SignInView {
     }
 
     override fun failedSignIn(error: Int) {
+        // Лучше вынести в утилиту
         Snackbar.make(root, getString(error), Snackbar.LENGTH_LONG).show()
     }
 
+    // Вкусовщина: вместо show/hide лучше использовать ожин вида showError(isVisible: Boolean)
     override fun showFormError(loginError: Int?, passwordError: Int?) {
         if (loginError != null)
             loginLayout.error = getString(loginError)
