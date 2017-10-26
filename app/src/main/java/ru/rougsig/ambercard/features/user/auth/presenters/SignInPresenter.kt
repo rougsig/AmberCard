@@ -19,11 +19,14 @@ class SignInPresenter() : MvpPresenter<SignInView>() {
     lateinit var userRepository: UserRepository
 
     fun signIn(login: String, password: String) {
+        // Валидацию лучше вынести в отдельную функцию, а ещё лучше класс или наор классов-валидаторов.
         var loginError: Int? = null
         var passwordError: Int? = null
 
         viewState.hideFormError()
 
+        // Однострочные читабельней
+        // Если заполню пробелами - прокатит. Используй isBlank()
         if (login.isEmpty())
             loginError = R.string.empty_login
         if (password.isEmpty())
@@ -36,6 +39,7 @@ class SignInPresenter() : MvpPresenter<SignInView>() {
         viewState.startSignIn()
         userRepository.signIn(login, password)
                 .subscribe(
+                        // Убери вообще -> ты не используешь, а если надо, то лучше it
                         { token ->
                             viewState.successSignIn()
                             viewState.finishSignIn()
@@ -43,6 +47,7 @@ class SignInPresenter() : MvpPresenter<SignInView>() {
                         { e ->
                             viewState.finishSignIn()
                             when (e) {
+                                // Лучше сделать хэндлер ошибок
                                 is HttpException -> viewState.failedSignIn(R.string.login_or_password_not_match)
                                 is IOException -> viewState.failedSignIn(R.string.network_error)
                                 else -> {

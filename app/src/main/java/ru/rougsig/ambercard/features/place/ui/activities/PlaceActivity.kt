@@ -63,6 +63,7 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
         }
     }
 
+    // Надо бы обработать эту ситуацию - показать ошибку или инфу о том что не будет работать
     override fun onPermissionDenied(requestCode: Int) {}
 
     override fun startLoading() {
@@ -75,6 +76,7 @@ class PlaceActivity : MvpAppCompatActivity(), PermissionView, PlaceView {
         progress_bar.visible = false
     }
 
+    // Слишком большая функция, сложно читать, лучше раздробить на несколько типа initMap итд
     @SuppressLint("SetTextI18n")
     override fun successLoading(place: PlaceModel) {
         galleryDialog = GalleryDialog(this, place.photos.map { baseURL + it })
